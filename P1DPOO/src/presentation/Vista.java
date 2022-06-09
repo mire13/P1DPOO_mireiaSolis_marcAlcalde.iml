@@ -3,7 +3,9 @@ package presentation;
 import business.*;
 
 import java.util.*;
-
+/**
+ * Es una clase que contiene la información que se pide al usuario por pantalla
+ */
 public class Vista {
 
     private final static String TIPO_FICHERO = "\nThe IEE needs to know where your allegiance lies.\n\n\tI) People's Front of Engineering (CSV)\n\tII) Engineering People's Front (JSON)\n\n";
@@ -73,7 +75,6 @@ public class Vista {
     private final static String REVISED= " Revisions...";
     private final static String PLAYER_DISCUALIFIED= " - Discualified! ";
 
-
     private final static String TRIAL_PUBLICACIO_INFO_FORMAT = "\nTrial: %s (%s)\nJournal: %s (%s)\nChances: %s%% acceptance, %s%% revision, %s%% rejection\n";
     private final static String TRIAL_MASTER_INFO_FORMAT = "\nTrial: %s (%s)\nMaster: %s\nECTS: %s, with a %s%% chance to pass each one\n";
     private final static String TRIAL_DOCTOR_INFO_FORMAT = "\nTrial: %s (%s)\nField: %s\nDifficulty: %s\n";
@@ -103,6 +104,10 @@ public class Vista {
     private final static String CONTINUE_EXECUTION= "Continue the execution? [yes/no]: ";
 
     private Scanner scanner;
+
+    /**
+     * Constructor por defecto de la clase UI
+     */
     public Vista(){
         scanner =  new Scanner(System.in);
     }

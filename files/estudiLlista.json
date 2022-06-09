@@ -1,0 +1,24 @@
+[
+  {
+    "journalName": "te",
+    "quartile": "Q1",
+    "acceptanceProbability": 50,
+    "revisionProbability": 20,
+    "rejectionProbability": 30,
+    "nom": "tete"
+  },
+  {
+    "journalName": "jaja",
+    "quartile": "Q3",
+    "acceptanceProbability": 20,
+    "revisionProbability": 20,
+    "rejectionProbability": 60,
+    "nom": "jaja"
+  },
+  {
+    "nomMaster": "no se",
+    "credits": 100,
+    "probabilitat": 40,
+    "nom": "Masterrrr"
+  }
+]

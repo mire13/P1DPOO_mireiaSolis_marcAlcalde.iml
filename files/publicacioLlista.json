@@ -1,0 +1,18 @@
+[
+  {
+    "journalName": "wq",
+    "quartile": "Q1",
+    "acceptanceProbability": 20,
+    "revisionProbability": 30,
+    "rejectionProbability": 50,
+    "nom": "qw"
+  },
+  {
+    "journalName": "journal",
+    "quartile": "Q2",
+    "acceptanceProbability": 20,
+    "revisionProbability": 30,
+    "rejectionProbability": 50,
+    "nom": "name"
+  }
+]

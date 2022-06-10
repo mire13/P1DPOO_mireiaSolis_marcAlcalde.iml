@@ -1,7 +1,6 @@
 package business;
 
 import persistance.ProvaDAO;
-
 import java.util.LinkedList;
 
 /**
@@ -113,7 +112,7 @@ public class ProvesManager {
     public void llegir(boolean isCSV) {
         String[] lines;
         if (isCSV){
-             lines = provaDAO.llegir();
+             lines = provaDAO.llegirCSV();
             // Itera per cada linia de l'arxiu
             for (int i = 0; i < lines.length; i++) {
                 // Separa la linia per cada coma

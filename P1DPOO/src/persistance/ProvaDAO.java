@@ -13,7 +13,9 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
+/**
+ * Clase que contiene los métodos implementados por los ficheros de pruebas
+ */
 public class ProvaDAO {
     private LinkedList<Prova> listProves;
     private final String PATH = System.getProperty("user.dir") + "/files/";
@@ -28,6 +30,10 @@ public class ProvaDAO {
     private LinkedList<ProvaTesiDoctoral> provaTesiDoctoral;
     private LinkedList<ProvaPresupost> provaPresupost;
 
+    /**
+     * Constructor por defecto
+     * @param isCSV boolean para saber si es CSV o JSON
+     */
     public ProvaDAO (boolean isCSV) {
         listProves = new LinkedList<>();
         if (!isCSV) {
@@ -45,6 +51,10 @@ public class ProvaDAO {
         }
     }
 
+    /**
+     * Método que sirve para leer del fichero tesi doctoral JSON
+     * @return String con la informacion
+     */
     public void llegeixTesiDoctoralJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaTesiDoctoral = new LinkedList<>();
@@ -59,6 +69,10 @@ public class ProvaDAO {
         }
     }
 
+    /**
+     * Método que sirve para leer del fichero presupost JSON
+     * @return String con la informacion
+     */
     public void llegeixPresupostJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaPresupost = new LinkedList<>();
@@ -73,6 +87,10 @@ public class ProvaDAO {
         }
     }
 
+    /**
+     * Método que sirve para leer del fichero estudi master JSON
+     * @return String con la informacion
+     */
     public void llegeixEstudiMasterJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaEstudiMaster = new LinkedList<>();
@@ -84,6 +102,10 @@ public class ProvaDAO {
         }
     }
 
+    /**
+     * Método que sirve para leer del fichero publicacion JSON
+     * @return String con la informacion
+     */
     public void llegeixPublicacioJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaPublicacio = new LinkedList<>();
@@ -95,19 +117,29 @@ public class ProvaDAO {
         }
     }
 
+    /**
+     * Método que sirve para chekear el path
+     */
     private void checkPath() {
         File dir = new File(PATH);
         if (!dir.exists())
             dir.mkdirs();
     }
 
+    /**
+     * Método que sirve para chekear el path y escribir en CSV
+     * @param info String con la informacion
+     */
     // Escriure
     public void escriure(String[] info) {
         checkPath();
-
         escriureCSV(info);
     }
 
+    /**
+     * Método que sirve para escribir en CSV
+     * @param info String con la informacion
+     */
     public void escriureCSV(String[] info) {
         try {
             // Obre el fitxer en mode d'escriptura
@@ -126,12 +158,10 @@ public class ProvaDAO {
         }
     }
 
-
-    // Llegir
-    public String[] llegir() {
-        return llegirCSV();
-    }
-
+    /**
+     * Método que sirve para leer del fichero CSV
+     * @return String con la informacion
+     */
     public String[] llegirCSV() {
         // Comprova si l'arxiu existeix
         ArrayList<String> lines = new ArrayList<>();
@@ -162,12 +192,19 @@ public class ProvaDAO {
         return linesArray;
     }
 
-
+    /**
+     * Método que sirve para leer del fichero JSON
+     * @return LinkedList con la informacion de las pruebas
+     */
     public LinkedList<Prova> llegirJSON() {
         LinkedList<Prova> list = listProves;
         return list;
     }
 
+    /**
+     * Método que sirve para escribir en JSON
+     * @param proves LinkedList de las proves
+     */
     public void escriureJSON(LinkedList<Prova> proves) {
         String fileName = "";
 
@@ -193,6 +230,10 @@ public class ProvaDAO {
 
     }
 
+    /**
+     * Método que sirve para actualizar el JSON
+     * @param filename String con el nombre del fichero
+     */
     public void actualizaJSON (String filename) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
@@ -209,6 +250,10 @@ public class ProvaDAO {
         }
     }
 
+    /**
+     * Método que sirve para eliminar una prueba del fichero JSON
+     * @param i int con el indice de la prueba a eliminar
+     */
     public void eliminaProvaJSON(int i) {
         String fileName = "";
 

@@ -9,11 +9,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Clase que contiene los métodos implementados por los ficheros de jugadores
+ */
 public class JugadorDAO {
-
 
     private final String PATH = System.getProperty("user.dir") + "/files/";
 
+    /**
+     * Método que sirve para chekear el path
+     */
     private void checkPath() {
         File dir = new File(PATH);
         if (!dir.exists()) {
@@ -21,13 +26,20 @@ public class JugadorDAO {
         }
     }
 
+    /**
+     * Método que sirve para chekear el path y escribir en CSV
+     * @param info String con la informacion
+     */
     // Escriure
     public void escriure(String[] info) {
         checkPath();
-
         escriureCSV(info);
     }
 
+    /**
+     * Método que sirve para escribir en CSV
+     * @param info String con la informacion
+     */
     public void escriureCSV(String[] info) {
         try {
             // Obre el fitxer en mode d'escriptura
@@ -46,17 +58,18 @@ public class JugadorDAO {
         }
     }
 
-
+    /**
+     * Método que sirve para escribir en JSON
+     * @param info String con la información
+     */
     public void escriureJSON(String[] info) {
 
     }
 
-
-    // Llegir
-    public String[] llegir() {
-        return llegirCSV();
-    }
-
+    /**
+     * Método que sirve para leer del fichero CSV
+     * @return String con la informacion
+     */
     public String[] llegirCSV() {
         // Comprova si l'arxiu existeix
         ArrayList<String> lines = new ArrayList<>();
@@ -87,7 +100,10 @@ public class JugadorDAO {
         return linesArray;
     }
 
-
+    /**
+     * Método que sirve para leer del fichero JSON
+     * @return String con la informacion
+     */
     public String[] llegirJSON() {
         return null;
     }

@@ -10,10 +10,16 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Clase que contiene los métodos implementados por los ficheros de ediciones
+ */
 public class EdicioDAO {
     private File file;
     private final String PATH = System.getProperty("user.dir") + "/files/";
 
+    /**
+     * Método que sirve para chekear el path
+     */
     private void checkPath() {
         File dir = new File(PATH);
         if (!dir.exists()) {
@@ -21,12 +27,20 @@ public class EdicioDAO {
         }
     }
 
+    /**
+     * Método que sirve para chekear el path y escribir en CSV
+     * @param info String con la informacion
+     */
     // Escriure
     public void escriure(String[] info) {
         checkPath();
         escriureCSV(info);
     }
 
+    /**
+     * Método que sirve para escribir en CSV
+     * @param info String con la informacion
+     */
     public void escriureCSV(String[] info) {
         try {
             // Obre el fitxer en mode d'escriptura
@@ -45,7 +59,10 @@ public class EdicioDAO {
         }
     }
 
-
+    /**
+     * Método que sirve para escribir en JSON
+     * @param ed LinkedList de las ediciones
+     */
     public void escriureJSON(LinkedList<Edicio> ed) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
@@ -57,12 +74,10 @@ public class EdicioDAO {
         }
     }
 
-
-    // Llegir
-    public String[] llegir() {
-        return llegirCSV();
-    }
-
+    /**
+     * Método que sirve para leer del fichero CSV
+     * @return String con la informacion
+     */
     public String[] llegirCSV() {
         // Comprova si l'arxiu existeix
         ArrayList<String> lines = new ArrayList<>();
@@ -93,7 +108,10 @@ public class EdicioDAO {
         return linesArray;
     }
 
-
+    /**
+     * Método que sirve para leer del fichero JSON
+     * @return Edicio[] con la informacion
+     */
     public Edicio[] llegirJSON() {
         try {
             FileReader fr = new FileReader(new File("P1DPOO/files/edicions.json"));

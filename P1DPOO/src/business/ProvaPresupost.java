@@ -1,8 +1,6 @@
 package business;
 
 import presentation.Controller;
-import presentation.Vista;
-
 import java.util.ArrayList;
 /**
  * Clase que contiene las pruebas de tipo Presupuesto

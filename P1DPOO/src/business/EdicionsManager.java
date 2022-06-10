@@ -162,7 +162,7 @@ public class EdicionsManager {
     public void llegir(LinkedList<Prova> provesList, boolean isCSV) {
         String[] lines;
         if (isCSV == true){
-            lines = edicioDAO.llegir();
+            lines = edicioDAO.llegirCSV();
             // Itera per cada linia de l'arxiu
             for (int i = 0; i < lines.length; i++) {
                 // Separa la linia per cada coma

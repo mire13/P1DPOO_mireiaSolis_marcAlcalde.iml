@@ -1,7 +1,6 @@
 package business;
 
 import presentation.Controller;
-
 import java.util.ArrayList;
 import java.util.Random;
 

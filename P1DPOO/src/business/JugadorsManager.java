@@ -1,7 +1,6 @@
 package business;
 
 import persistance.JugadorDAO;
-
 import java.util.ArrayList;
 
 /**
@@ -98,7 +97,7 @@ public class JugadorsManager {
     public void llegir(boolean isCSV) {
         String[] lines;
         if (true){
-            lines = jugadorDAO.llegir();
+            lines = jugadorDAO.llegirCSV();
             // Itera per cada linia de l'arxiu
             for (int i = 0; i < lines.length; i++) {
                 // Separa la linia per cada coma

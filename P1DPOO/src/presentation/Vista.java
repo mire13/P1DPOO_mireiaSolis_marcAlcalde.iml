@@ -716,25 +716,3 @@ public class Vista {
         System.out.printf(PRESUPOST_PUNTS, nom, pi);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

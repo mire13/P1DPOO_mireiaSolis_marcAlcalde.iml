@@ -5,6 +5,9 @@ import business.*;
 import java.util.Date;
 import java.util.Calendar;
 
+/**
+ * Clase encargada de llevar el control de las acciones del programa
+ */
 public class Controller {
     private Vista vista;
     private TaskManager taskManager;
@@ -12,6 +15,9 @@ public class Controller {
     private ProvaPublicacio prova;
     private int CURRENT_YEAR = 2022;
 
+    /**
+     * Constructor por defecto
+     */
     public Controller() {
         this.vista = new Vista();
         this.taskManager = new TaskManager();
@@ -22,6 +28,9 @@ public class Controller {
         CURRENT_YEAR = calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Método que consiste en el cuerpo de la ejecucion
+     */
     public void run() {
         char opcio;
         int fichero = vista.pedirFichero();
@@ -35,7 +44,10 @@ public class Controller {
         executarOpcio(opcio);
     }
 
-
+    /**
+     * Método que sirve para ejecutar la opcion
+     * @param opcio char de la opcion
+     */
     public void executarOpcio(char opcio) {
 
         switch (opcio) {
@@ -51,6 +63,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Método para gestionar las ediciones y las pruebas
+     */
     public void compositor() {
         vista.showManagement();
         int administracio;
@@ -76,7 +91,9 @@ public class Controller {
 
     }
 
-
+    /**
+     * Método que sirve para dministrar las pruebas
+     */
     public void administraProves() {
         char opcioProva;
 
@@ -102,6 +119,9 @@ public class Controller {
         } while (opcioProva != 'D');
     }
 
+    /**
+     * Método que sirve para crear una prueba
+     */
     public void creaProva() {
         String trialName;
         int tryalType = vista .askTrialType();
@@ -154,6 +174,9 @@ public class Controller {
         vista.showTrialSuccessful();
     }
 
+    /**
+     * Método que sirve para listar las pruebas
+     */
     public void llistaProves() {
         int opcio;
         System.out.println("Num proves = " +taskManager.getProves().size());
@@ -174,6 +197,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Método que sirve para eliminar una prueba
+     */
     public void eliminarProva() {
         int opcio;
         String nomProvaAEliminar;
@@ -197,9 +223,11 @@ public class Controller {
                     vista.showTrialMatchError();
                 }
         }
-        }
+    }
 
-
+    /**
+     * Método que sirve para administrar ediciones
+     */
     public void administraEdicions() {
         char opcio;
 
@@ -228,6 +256,9 @@ public class Controller {
         } while(opcio!='E');
     }
 
+    /**
+     * Método que sirve para crear una edicion
+     */
     public void creaEdicio() {
         int anyEdicio, numJugadorsInicials, numProves;
         int i, seleccioProva;
@@ -260,6 +291,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Método que sirve para listar las ediciones
+     */
     public void llistarEdicions(){
         int opcio;
 
@@ -274,6 +308,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Método que sirve para duplicarr las ediciones
+     */
     public void duplicarEdicio() {
         int opcio, any, numJugadors;
 
@@ -300,7 +337,9 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Método que sirve para eliminar las ediciones
+     */
     public void eliminarEdicio(){
         int opcio, anyAEliminar;
 
@@ -322,6 +361,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Método que sirve para ejecutar la edicion actual
+     */
     public void conductor(){
         // Comprova si n'hi ha una edició per aquest any
         if (taskManager.edicioEnCurs(CURRENT_YEAR)!=-1) {
@@ -473,36 +515,92 @@ public class Controller {
 
          */
     }
+
+    /**
+     * Método que sirve para mostrar el master
+     * @param title String con el título del master
+     * @param creditsSuperats int con los creditos superados
+     * @param credits int con los creditos totaltes
+     */
     public void showMasterStudy(String title, int creditsSuperats, int credits){
         vista.showMasterStudy(title, creditsSuperats, credits);
     }
+
+    /**
+     * Método que sirve para mostrar el master fallado
+     * @param pi int con la puntuacion
+     */
     public void showMasterFallat(int pi){
         vista.showMasterFallat(pi);
     }
+
+    /**
+     * Método que sirve para mostrar el master superado
+     * @param pi  int con la puntuacion
+     */
     public void showMasterSuperat(int pi){
         vista.showMasterSuperat(pi);
     }
+    /**
+     * Método que sirve para mostrar el presupuesto superado
+     */
     public void showPresupostSuperat(){
         vista.showPresupostSuperat();
     }
+    /**
+     * Método que sirve para mostrar el presupuesto fallado
+     */
     public void showPresupostFallat(){
         vista.showPresupostFallat();
     }
+
+    /**
+     * Método que sirve para mostrar los puntos ganados
+     * @param nom String con el nombre
+     * @param pi int con la puntuacion
+     */
     public void showPresupostPuntsGuanyats(String nom, int pi){
         vista.showPresupostPuntsGuanyats(nom, pi);
     }
+
+    /**
+     * Método que sirve para mostrar el doctor superado
+     * @param nom String con el nombre
+     * @param pi int con la puntuacion
+     */
     public void showDoctorSuperat(String nom, int pi){
         vista.showDoctorSuperat(nom, pi);
     }
+
+    /**
+     * Método que sirve para mostrar el doctor fallado
+     * @param nom String con el nombre
+     * @param pi int con la puntuacion
+     */
     public void showDoctorFallat(String nom, int pi){
         vista.showDoctorFallat(nom, pi);
     }
+
+    /**
+     * Método que sirve para mostrar la submission
+     * @param title String con el titulo
+     */
     public void showSubmission(String title){
         vista.showSubmission(title);
     }
+
+    /**
+     * Método que sirve para mostrar cambio a master
+     * @param nom String con el nombre
+     */
     public void showEnginyerCanviaMaster(String nom){
         vista.showEnginyerCanviaMaster(nom);
     }
+
+    /**
+     * Método que sirve para mostrar cambio a doctor
+     * @param nom String con el nombre
+     */
     public void showMasterCanviaDoctor(String nom){
         vista.showMasterCanviaDoctor(nom);
     }

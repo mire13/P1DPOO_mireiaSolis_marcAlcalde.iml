@@ -2,6 +2,9 @@ package business;
 
 import java.util.ArrayList;
 
+/**
+ * Clase para las ediciones en curso que extiende de edicion
+ */
 public class EdicioEnCurs extends Edicio{
     public EdicioEnCurs(int any, int totalJugadors, int totalProves, int[] proves) {
         super(any, totalJugadors, totalProves, proves);

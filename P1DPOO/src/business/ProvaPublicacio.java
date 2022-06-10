@@ -1,10 +1,13 @@
 package business;
 
+import presentation.Controller;
 import presentation.Vista;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * Clase que contiene las pruebas de tipo publicacion
+ */
 public class ProvaPublicacio extends Prova {
     private String journalName;
     private String quartile;
@@ -14,6 +17,15 @@ public class ProvaPublicacio extends Prova {
 
     public static final String TRIAL_TYPE = "Prova Publicacio";
 
+    /**
+     * Constructor que crea un objeto con los atributos correspondientes
+     * @param trialName String que contiene el nombre de la prueba
+     * @param journalName String que contiene el nombre de la publicacion
+     * @param quartile String que contiene el quartil
+     * @param acceptanceProbability int que contiene la probabilidad de aceptacion
+     * @param revisionProbability int que contiene la probabilidad de revision
+     * @param rejectionProbability int que contiene la probabilidad de rejeccion
+     */
     public ProvaPublicacio(String trialName, String journalName, String quartile, int acceptanceProbability, int revisionProbability, int rejectionProbability){
         this.nom = trialName;
         this.journalName = journalName;
@@ -23,16 +35,28 @@ public class ProvaPublicacio extends Prova {
         this.rejectionProbability = rejectionProbability;
     }
 
+    /**
+     * Método para coger la informacion del fichero
+     * @return String con la informacion
+     */
     public String getInfoCSV() {
         return TRIAL_TYPE + "," + getNom() + "," + journalName + "," + quartile + "," + acceptanceProbability + "," + revisionProbability + ","
                 + rejectionProbability;
     }
 
+    /**
+     * Método para coger el tipo de prueba
+     * @return String con el tipo de prueba
+     */
     @Override
     public String getType() {
         return TRIAL_TYPE;
     }
 
+    /**
+     * Método para coger la informacion del master
+     * @return String con la informacion del master
+     */
     public String[] getInfo(){
         String[] info = new String[7];
 
@@ -47,6 +71,10 @@ public class ProvaPublicacio extends Prova {
         return info;
     }
 
+    /**
+     * Método para coger los puntos a penalizar
+     * @return int con los puntos
+     */
     private int getPuntsPenalitzar() {
         switch (quartile) {
             case "Q1":
@@ -61,6 +89,10 @@ public class ProvaPublicacio extends Prova {
         return 0;
     }
 
+    /**
+     * Método para coger los puntos a premiar
+     * @return int con los puntos
+     */
     private int getPuntsPremiar() {
         switch (quartile) {
             case "Q1":
@@ -74,12 +106,19 @@ public class ProvaPublicacio extends Prova {
         }
         return 0;
     }
-
-    public void executarProva(int index, int totalJugadors, int any, ArrayList<Jugador> jugadors, Vista vista) {
+    /**
+     * Método para ejecutar una prueba
+     * @param index int
+     * @param totalJugadors int con el total de jugadores
+     * @param any int con el año de la prueba
+     * @param jugadors ArrayList con los jugadores
+     * @param controller controlador
+     */
+    public void executarProva(int index, int totalJugadors, int any, ArrayList<Jugador> jugadors, Controller controller) {
         for(Jugador jugador : jugadors) {
-            if (jugador.getAny() == any && jugador.getPI()>0) {
+            if (jugador.getAny() == any && jugador.getPi()>0) {
                 // Executa la prova de publicacio per un jugador especific
-                vista.showSubmission(jugador.getTitle());
+                controller.showSubmission(jugador.getTitle());
 
                 int value = 0;
                 Random rand = new Random();
@@ -93,11 +132,11 @@ public class ProvaPublicacio extends Prova {
                     } else if (value >= revisionProbability && value < (revisionProbability + rejectionProbability)) {
                         // Penalitzem per haver sigut rebutjat
                         jugador.penalitzar(getPuntsPenalitzar());
-                        System.out.print(" Rejected. PI count: " + jugador.getPI() + "\n");
+                        System.out.print(" Rejected. PI count: " + jugador.getPi() + "\n");
                     } else if (value >= (revisionProbability + rejectionProbability) && value < 100) {
                         // Premiem per haver sigut acceptat
                         jugador.premiar(getPuntsPremiar());
-                        System.out.print(" Accepted! PI count: " + jugador.getPI() + "\n");
+                        System.out.print(" Accepted! PI count: " + jugador.getPi() + "\n");
                     }
                 } while (value < revisionProbability);
             }

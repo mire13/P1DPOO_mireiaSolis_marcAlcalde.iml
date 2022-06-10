@@ -1,9 +1,9 @@
-import presentation.controller;
+import presentation.Controller;
 
 public class Main {
 
     private static void ExecuteController() {
-        controller c = new controller();
+        Controller c = new Controller();
         c.run();
     }
 

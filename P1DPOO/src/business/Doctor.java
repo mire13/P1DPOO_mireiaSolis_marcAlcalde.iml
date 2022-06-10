@@ -9,10 +9,10 @@ public class Doctor extends Jugador {
      * Constructor para crear un nuevo jugador tipo Doctor
      * @param any int con el año
      * @param nom String del nombre del jugador
-     * @param PI int con la experiencia
+     * @param pi int con la experiencia
      */
-    public Doctor(int any, String nom, int PI) {
-        super(any, nom, PI);
+    public Doctor(int any, String nom, int pi) {
+        super(any, nom, pi);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Doctor extends Jugador {
      * @return String con la información
      */
     public String getInfoCSV() {
-        return "Doctor" + "," + any + "," + nom + "," + PI;
+        return "Doctor" + "," + any + "," + nom + "," + pi;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Doctor extends Jugador {
      * @param quantitat int con la cantidad
      */
     public void premiar(int quantitat){
-        PI = PI + quantitat * 2;
+        pi = pi + quantitat * 2;
     }
 
     /**
@@ -50,6 +50,6 @@ public class Doctor extends Jugador {
      * @param quantitat int con la cantidad
      */
     public void penalitzar(int quantitat){
-        PI = PI - (int) Math.floor(quantitat / 2);
+        pi = pi - (int) Math.floor(quantitat / 2);
     }
 }

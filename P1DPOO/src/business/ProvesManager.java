@@ -4,20 +4,35 @@ import persistance.ProvaDAO;
 
 import java.util.LinkedList;
 
+/**
+ * Método que sirve para controlar y gestionar las pruebas
+ */
 public class ProvesManager {
 
     private LinkedList<Prova> proves;
     private ProvaDAO provaDAO;
 
+    /**
+     * Constructor para inicializar la lista de pruebas y del DAO
+     */
     public ProvesManager() {
         this.provaDAO = new ProvaDAO(false); // TODO remove false put isCSV
         this.proves = new LinkedList<Prova>();
     }
 
+    /**
+     * Método que sirve para recoger las pruebas
+     * @return LinkedList de pruebas
+     */
     public LinkedList<Prova> getProves() {
         return provaDAO.llegirJSON();
     }
 
+    /**
+     * Método que sirve para crear una prueva y añadirla a la lista
+     * @param prova que contiene la informacion de prueva
+     * @param isCSV boolean para saber si es CSV o JSON
+     */
     public void creaProva(Prova prova, boolean isCSV) {
         if (prova.getClass().getSimpleName().equals("ProvaEstudiMaster")){
             // Afegeix la nova prova a la llista
@@ -43,6 +58,10 @@ public class ProvesManager {
         }
     }
 
+    /**
+     * Método para saber si hay alguna prueba
+     * @return boolean para saber si hay pruebas
+     */
     public boolean absenceOfTrials() {
         //Si hi ha 0 proves retornem true
         return proves.size() < 1;
@@ -52,10 +71,19 @@ public class ProvesManager {
         return nom.equals(proves.get(opcio).getNom());
     }
 
+    /**
+     * Método que sirve para eliminar una prueba
+     * @param i int para saber cual eliminar
+     */
     public void eliminaProva(int i) {
         provaDAO.eliminaProvaJSON(i);
     }
 
+    /**
+     * Método para saber si ese nombre esta repetido
+     * @param nom String con el nombre de la prueba
+     * @return boolean para saber si esta o no repetido
+     */
     public boolean nomRepetit(String nom) {
         //Busquem el nom entre la resta de noms de proves per tal de comprovar que no estigui repetit
         for (Prova p : this.proves) {
@@ -66,6 +94,9 @@ public class ProvesManager {
         return nom.equals("");
     }
 
+    /**
+     * Método para escribir en CVS en el fichero de pruebas
+     */
     public void escriure() {
         String[] info = new String[proves.size()];
 
@@ -75,6 +106,10 @@ public class ProvesManager {
         provaDAO.escriure(info);
     }
 
+    /**
+     * Método para leer los ficheros de pruebas
+     * @param isCSV boolean para saber si leer CSV o JSON
+     */
     public void llegir(boolean isCSV) {
         String[] lines;
         if (isCSV){

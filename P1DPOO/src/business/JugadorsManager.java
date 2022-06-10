@@ -4,29 +4,49 @@ import persistance.JugadorDAO;
 
 import java.util.ArrayList;
 
+/**
+ * Método que sirve para controlar y gestionar los jugadores
+ */
 public class JugadorsManager {
 
     private ArrayList<Jugador> jugadors;
     private JugadorDAO jugadorDAO;
 
+    /**
+     * Constructor para inicializar la lista de jugadores y del DAO
+     */
     public JugadorsManager(){
         this.jugadorDAO = new JugadorDAO();
         this.jugadors = new ArrayList<Jugador>();
     }
 
+    /**
+     * Método para crear un jugador
+     * @param jugador con la información del jugador
+     */
     public void creaJugador(Jugador jugador) {
         jugadors.add(jugador);
     }
 
+    /**
+     * Método para eliminar un jugador
+     * @param index int
+     */
     public void eliminarJugador(int index) {
         jugadors.remove(index);
     }
 
+    /**
+     * Método para limpiar la lista de jugadores
+     */
     public void netejarLlista() {
         jugadors.clear();
     }
 
-
+    /**
+     * Método para coger la informacion de los jugadores
+     * @return ArrayList de jugadores
+     */
     public ArrayList<Jugador> getJugadors() {
         return jugadors;
     }
@@ -37,15 +57,29 @@ public class JugadorsManager {
         return null;
     }
 
+    /**
+     * Método que sirve para premiar a un jugador
+     * @param any int con el año
+     * @param nom String con el nombre
+     * @param punts int con los puntos
+     */
     public void premiar(int any, String nom, int punts) {
         getJugador(any, nom).premiar(punts);
     }
+
+    /**
+     * Método que sirve para penalizar a un jugador
+     * @param any int con el año
+     * @param nom String con el nombre
+     * @param punts int con los puntos
+     */
     public void penalitzar(int any, String nom, int punts){
         getJugador(any, nom).penalitzar(punts);
     }
 
-
-
+    /**
+     * Método que sirve para escribir en el fichero la informacion del jugador
+     */
     public void Escriure() {
         String[] info = new String[jugadors.size()];
         int i = 0;
@@ -58,6 +92,9 @@ public class JugadorsManager {
         jugadorDAO.escriure(info);
     }
 
+    /**
+     * Método que sirve para leer del fichero la informacion del jugador
+     */
     public void llegir(boolean isCSV) {
         String[] lines;
         if (true){
@@ -85,5 +122,4 @@ public class JugadorsManager {
             lines = jugadorDAO.llegirJSON();
         }
     }
-
 }

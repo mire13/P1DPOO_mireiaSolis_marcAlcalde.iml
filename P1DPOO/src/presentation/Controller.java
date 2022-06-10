@@ -5,14 +5,14 @@ import business.*;
 import java.util.Date;
 import java.util.Calendar;
 
-public class controller {
+public class Controller {
     private Vista vista;
     private TaskManager taskManager;
     private ProvesManager provesManager;
     private ProvaPublicacio prova;
     private int CURRENT_YEAR = 2022;
 
-    public controller() {
+    public Controller() {
         this.vista = new Vista();
         this.taskManager = new TaskManager();
 
@@ -351,9 +351,9 @@ public class controller {
                     // Executa la prova
                     Prova p = taskManager.getProves().get(proves[state]);
                     vista.showRunningTrial(state + 1, p.getNom());
-                    p.executarProva(state + 1, totalJugadors, CURRENT_YEAR, taskManager.getJugadors(), vista);
+                    p.executarProva(state + 1, totalJugadors, CURRENT_YEAR, taskManager.getJugadors(), this);
                     System.out.println();
-                    taskManager.cambiarTipusJugadors(CURRENT_YEAR, vista);
+                    taskManager.cambiarTipusJugadors(CURRENT_YEAR, this);
                     e.setCurrentState(e.getCurrentState() + 1);
                     taskManager.escriure();
 
@@ -473,5 +473,37 @@ public class controller {
 
          */
     }
-
+    public void showMasterStudy(String title, int creditsSuperats, int credits){
+        vista.showMasterStudy(title, creditsSuperats, credits);
+    }
+    public void showMasterFallat(int pi){
+        vista.showMasterFallat(pi);
+    }
+    public void showMasterSuperat(int pi){
+        vista.showMasterSuperat(pi);
+    }
+    public void showPresupostSuperat(){
+        vista.showPresupostSuperat();
+    }
+    public void showPresupostFallat(){
+        vista.showPresupostFallat();
+    }
+    public void showPresupostPuntsGuanyats(String nom, int pi){
+        vista.showPresupostPuntsGuanyats(nom, pi);
+    }
+    public void showDoctorSuperat(String nom, int pi){
+        vista.showDoctorSuperat(nom, pi);
+    }
+    public void showDoctorFallat(String nom, int pi){
+        vista.showDoctorFallat(nom, pi);
+    }
+    public void showSubmission(String title){
+        vista.showSubmission(title);
+    }
+    public void showEnginyerCanviaMaster(String nom){
+        vista.showEnginyerCanviaMaster(nom);
+    }
+    public void showMasterCanviaDoctor(String nom){
+        vista.showMasterCanviaDoctor(nom);
+    }
 }

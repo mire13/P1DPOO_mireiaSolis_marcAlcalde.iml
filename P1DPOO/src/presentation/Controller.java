@@ -36,7 +36,9 @@ public class Controller {
         int fichero = vista.pedirFichero();
         if (fichero == 1) {
             taskManager.leerCSV();
+            taskManager.setCSV(true);
         } else if (fichero == 2){
+            taskManager.setCSV(false);
             taskManager.leerJSON();
         }
         vista.showBanner();
@@ -179,7 +181,6 @@ public class Controller {
      */
     public void llistaProves() {
         int opcio;
-        System.out.println("Num proves = " +taskManager.getProves().size());
         //En cas que no hi hagi proves a mostrar printem error
         if (taskManager.absenceOfTrials()){
             vista.showAbsenceOfTrials();
@@ -217,7 +218,7 @@ public class Controller {
             } else
                 //Si coincideix la eliminem, si no coincideix sortim per si l'usuari ha fet missclic i no volia borrar aquesta
                 if (taskManager.elsNomsCoincideixen(opcio-1, nomProvaAEliminar)) {
-                    taskManager.eliminaProva(opcio - 1);
+                    taskManager.eliminaProva(opcio - 1, nomProvaAEliminar);
                     vista.showTrialDeleted();
                 } else {
                     vista.showTrialMatchError();

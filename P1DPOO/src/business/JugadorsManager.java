@@ -79,7 +79,7 @@ public class JugadorsManager {
     /**
      * Método que sirve para escribir en el fichero la informacion del jugador
      */
-    public void Escriure() {
+    public void escriure() {
         String[] info = new String[jugadors.size()];
         int i = 0;
 

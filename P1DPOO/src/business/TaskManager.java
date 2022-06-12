@@ -71,7 +71,7 @@ public class TaskManager {
      * Método que sirve para eliminar pruebas
      * @param i int con la prueba a eliminar
      */
-    public void eliminaProva(int i) {
+    public void eliminaProva(int i, String nomProva) {
         provesManager.eliminaProva(i);
         for(Edicio e : edicionsManager.getEdicions()) {
             e.updateProves(i);
@@ -207,7 +207,7 @@ public class TaskManager {
     public void escriure() {
         provesManager.escriure();
         edicionsManager.escriure();
-        jugadorsManager.Escriure();
+        jugadorsManager.escriure();
     }
 
     /**
@@ -251,5 +251,14 @@ public class TaskManager {
         for(Edicio e : edicionsManager.getEdicions())
             if (e.getAny() == anyActual) e.setCurrentState(0);
         jugadorsManager.netejarLlista();
+    }
+
+    /**
+     * Setter para asignar si ha escogido csv o json como opcion de persistencia
+     *
+     * @param isCSV true si es csv false si es json
+     */
+    public void setCSV(boolean isCSV) {
+        provesManager.setCSV(isCSV);
     }
 }

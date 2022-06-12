@@ -25,6 +25,8 @@ public class ProvaDAO {
     private final static String PATH_TESI_LLISTA = "P1DPOO/files/tesiLlista.json";
     private final static String PATH_PRESUPOST_LLISTA = "P1DPOO/files/presupostLlista.json";
 
+    private final static String PATH_PROVES_CSV = "P1DPOO/files/proves.csv";
+
     private LinkedList<ProvaPublicacio> provaPublicacio;
     private LinkedList<ProvaEstudiMaster> provaEstudiMaster;
     private LinkedList<ProvaTesiDoctoral> provaTesiDoctoral;
@@ -48,6 +50,8 @@ public class ProvaDAO {
 
             //Sollicitud Pressupost
             llegeixPresupostJSON();
+        } else {
+            llegirCSV();
         }
     }
 
@@ -130,7 +134,6 @@ public class ProvaDAO {
      * Método que sirve para chekear el path y escribir en CSV
      * @param info String con la informacion
      */
-    // Escriure
     public void escriure(String[] info) {
         checkPath();
         escriureCSV(info);
@@ -143,7 +146,7 @@ public class ProvaDAO {
     public void escriureCSV(String[] info) {
         try {
             // Obre el fitxer en mode d'escriptura
-            FileWriter file = new FileWriter(PATH + "proves.csv");
+            FileWriter file = new FileWriter(PATH_PROVES_CSV);
 
             // Itera per cada linea donada i registrala a l'arxiu CSV
             for (int i = 0; i < info.length; i++)
@@ -166,11 +169,11 @@ public class ProvaDAO {
         // Comprova si l'arxiu existeix
         ArrayList<String> lines = new ArrayList<>();
         try {
-            File f = new File(PATH + "proves.csv");
+            File f = new File(PATH_PROVES_CSV);
 
             if (f.exists()) {
                 // Obre el fitxer per llegir
-                FileReader file = new FileReader(PATH + "proves.csv");
+                FileReader file = new FileReader(PATH_PROVES_CSV);
                 Scanner scan = new Scanner(file);
 
                 // Itera per cada linea i afegeix-la a la lista

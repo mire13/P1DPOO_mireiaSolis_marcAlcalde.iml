@@ -2,7 +2,6 @@ package business;
 
 import persistance.EdicioDAO;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -13,12 +12,13 @@ public class EdicionsManager {
     private LinkedList<Edicio> edicions;
     private EdicioDAO edicioDAO;
 
+    private boolean isCSV;
+
     /**
-     * Constructor para inicializar la lista de ediciones y del DAO
+     * Constructor para inicializar la lista de ediciones
      */
     public EdicionsManager() {
-        this.edicioDAO = new EdicioDAO();
-        this.edicions = new LinkedList<Edicio>();
+        this.edicions = new LinkedList<>();
     }
 
     /**
@@ -26,7 +26,8 @@ public class EdicionsManager {
      * @return LinkedList de ediciones
      */
     public LinkedList<Edicio> getEdicions() {
-        return edicions;
+        LinkedList<Edicio> list = edicions;
+        return list;
     }
 
     /**
@@ -35,9 +36,10 @@ public class EdicionsManager {
      * @param isCSV boolean para saber si es CSV o JSON
      */
     public void creaEdicio(Edicio edicio, boolean isCSV) {
+        setCSV(isCSV);
         edicions.add(edicio);
-        if (isCSV == true){
-            escriure();
+        if (isCSV){
+            escriureCSV();
         } else {
             escriureJSON();
         }
@@ -57,7 +59,11 @@ public class EdicionsManager {
     public void duplicarEdicio(int opcio, int any, int numJugadors) {
         Edicio novaEdicio = new Edicio(any, numJugadors, edicions.get(opcio - 1).getTotalProves(), edicions.get(opcio - 1).getProves());
         edicions.add(novaEdicio);
-        escriure();
+        if (isCSV()) {
+            escriureCSV();
+        } else {
+            escriureJSON();
+        }
     }
 
     /**
@@ -66,7 +72,11 @@ public class EdicionsManager {
      */
     public void eliminaEdicio(int i) {
         edicions.remove(i);
-        escriure();
+        if (isCSV()) {
+            escriureCSV();
+        } else {
+            escriureJSON();
+        }
     }
 
     /**
@@ -89,7 +99,7 @@ public class EdicionsManager {
         edicions.remove(IDEdicioActual);
         if (!lost)
             edicions.add(IDEdicioActual, edicioEnCurs);
-        escriure();
+        escriureCSV();
     }
 
     /**
@@ -131,7 +141,7 @@ public class EdicionsManager {
     /**
      * Método para escribir en CVS en el fichero de ediciones
      */
-    public void escriure() {
+    public void escriureCSV() {
         String[] info = new String[edicions.size()];
         int i = 0;
 
@@ -160,8 +170,10 @@ public class EdicionsManager {
      * @param isCSV boolean para saber si leer CSV o JSON
      */
     public void llegir(LinkedList<Prova> provesList, boolean isCSV) {
+        setCSV(isCSV);
         String[] lines;
-        if (isCSV == true){
+        edicioDAO = new EdicioDAO(isCSV());
+        if (isCSV()){
             lines = edicioDAO.llegirCSV();
             // Itera per cada linia de l'arxiu
             for (int i = 0; i < lines.length; i++) {
@@ -182,19 +194,36 @@ public class EdicionsManager {
                 // Afegeix la nova prova a la llista
                 Edicio e = new Edicio(any, jugNum, provesNum, proves);
                 e.setCurrentState(state);
-                creaEdicio(e, isCSV);
+                creaEdicio(e, isCSV());
             }
-        } else if (isCSV == false){
+        } else if (!isCSV()){
             Edicio[] e = edicioDAO.llegirJSON();
             if (e == null) {
 
             } else {
                 for (int i = 0; i < e.length; i++) {
                     //e[i].setCurrentState(state);
-                    creaEdicio(e[i], isCSV);
+                    creaEdicio(e[i], isCSV());
                 }
             }
         }
+    }
 
+    /**
+     * Getter para saber si ha escogido CSV o no como opcion de persistencia
+     *
+     * @return true si es CSV o false si no
+     */
+    public boolean isCSV() {
+        return isCSV;
+    }
+
+    /**
+     * Setter para asignar true si es CSV o false si es Json
+     *
+     * @param CSV boolean para asignar el valor
+     */
+    public void setCSV(boolean CSV) {
+        isCSV = CSV;
     }
 }

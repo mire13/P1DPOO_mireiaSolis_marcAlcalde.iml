@@ -76,7 +76,7 @@ public class TaskManager {
         for(Edicio e : edicionsManager.getEdicions()) {
             e.updateProves(i);
         }
-        edicionsManager.escriure();
+        edicionsManager.escriureCSV();
     }
 
     /**
@@ -206,7 +206,7 @@ public class TaskManager {
      */
     public void escriure() {
         provesManager.escriure();
-        edicionsManager.escriure();
+        edicionsManager.escriureCSV();
         jugadorsManager.escriure();
     }
 

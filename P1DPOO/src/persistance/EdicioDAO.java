@@ -14,16 +14,18 @@ import java.util.ArrayList;
  * Clase que contiene los métodos implementados por los ficheros de ediciones
  */
 public class EdicioDAO {
-    private File file;
-    private final String PATH = System.getProperty("user.dir") + "/files/";
+    private final static String PATH_EDICIONS_CSV = "P1DPOO/files/edicions.csv";
+    private final static String PATH_EDICIONS_JSON = "P1DPOO/files/edicions.json";
 
     /**
-     * Método que sirve para chekear el path
+     * Constructor por defecto
+     * @param isCSV boolean para saber si es CSV o JSON
      */
-    private void checkPath() {
-        File dir = new File(PATH);
-        if (!dir.exists()) {
-            dir.mkdirs();
+    public EdicioDAO (boolean isCSV) {
+        if (!isCSV) {
+            llegirJSON();
+        } else {
+            llegirCSV();
         }
     }
 
@@ -33,7 +35,6 @@ public class EdicioDAO {
      */
     // Escriure
     public void escriure(String[] info) {
-        checkPath();
         escriureCSV(info);
     }
 
@@ -44,7 +45,7 @@ public class EdicioDAO {
     public void escriureCSV(String[] info) {
         try {
             // Obre el fitxer en mode d'escriptura
-            FileWriter file = new FileWriter(PATH + "edicions.csv");
+            FileWriter file = new FileWriter(PATH_EDICIONS_CSV);
 
             // Itera per cada linea donada i registrala a l'arxiu CSV
             for (String s : info) {
@@ -66,7 +67,7 @@ public class EdicioDAO {
     public void escriureJSON(LinkedList<Edicio> ed) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
-            FileWriter writer = new FileWriter(PATH+"edicions.json");
+            FileWriter writer = new FileWriter(PATH_EDICIONS_JSON);
             gson.toJson(ed, writer);
             writer.close();
         } catch (IOException e) {
@@ -82,11 +83,11 @@ public class EdicioDAO {
         // Comprova si l'arxiu existeix
         ArrayList<String> lines = new ArrayList<>();
         try {
-            File f = new File(PATH + "edicions.csv");
+            File f = new File(PATH_EDICIONS_CSV);
 
             if (f.exists()) {
                 // Obre el fitxer per llegir
-                FileReader file = new FileReader(PATH + "edicions.csv");
+                FileReader file = new FileReader(PATH_EDICIONS_CSV);
                 Scanner scan = new Scanner(file);
 
                 // Itera per cada linea i afegeix-la a la lista

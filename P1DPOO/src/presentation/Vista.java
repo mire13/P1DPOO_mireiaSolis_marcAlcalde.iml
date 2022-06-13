@@ -149,6 +149,10 @@ public class Vista {
         return seleccion;
     }
 
+    /**
+     * Método que sirve para pedir un carácter
+     * @return char de el carácter introducido
+     */
     public char askForChar() {
         String line = null;
         do {
@@ -162,6 +166,10 @@ public class Vista {
         return Character.toUpperCase(line.charAt(0));
     }
 
+    /**
+     * Método que sirve para pedir un int
+     * @return int introducido
+     */
     public int askForInteger(){
         while (!scanner.hasNextInt()) {
             System.out.print("Integer input expected. Please try again: ");
@@ -173,6 +181,11 @@ public class Vista {
 
         return option;
     }
+
+    /**
+     * Método que sirve para pedir un int para el valor de acceptance
+     * @return int con el valor de acceptance introducido
+     */
     public int askAcceptance(){
         while(true) {
             try {
@@ -186,6 +199,11 @@ public class Vista {
             }
         }
     }
+
+    /**
+     * Método que sirve para pedir un int para el valor de revision
+     * @return int con el valor de revision introducido
+     */
     public int askRevision(){
         while(true) {
             try {
@@ -199,6 +217,11 @@ public class Vista {
             }
         }
     }
+
+    /**
+     * Método que sirve para pedir un int para el valor de rejection
+     * @return int con el valor de rejection introducido
+     */
     public int askRejection(){
         while(true) {
             try {
@@ -213,14 +236,28 @@ public class Vista {
         }
     }
 
+    /**
+     * Método que sirve para pedir por pantalla el nombre de una prueva
+     * @return String del nombre de la prueba
+     */
     public String askTrialName(){
         show(TRIAL_NAME);
         return scanner.nextLine();
     }
+
+    /**
+     * Método que sirve para pedir el nombre de la publicacion
+     * @return String del nombre
+     */
     public String askJournalName(){
         show(JOURNAL_NAME);
         return scanner.nextLine();
     }
+
+    /**
+     * Método que sirve para pedir el quartil
+     * @return String del quartil
+     */
     public String askQuartile(){
         String quartile;
         show(QUARTILE_TYPE);
@@ -232,14 +269,22 @@ public class Vista {
         } while (!Objects.equals(quartile, "Q1") && !Objects.equals(quartile, "Q2") && !Objects.equals(quartile, "Q3") && !Objects.equals(quartile, "Q4"));
         return quartile;
     }
+
+    /**
+     * Método que sirve para pedir la confirmacion del nombre de la prueba que queremos borrar
+     * @return String con el nombre
+     */
     public String askDeleteTrialName(){
         show(NAME_CONFIRMAITON);
         return scanner.nextLine();
     }
 
+    /**
+     * Método que sirve para pedir el rol del programa
+     * @return int con el rol
+     */
     public int askForRole() {
         int rol;
-
         show(WELCOME);
         do {
             rol = askForChar();
@@ -250,6 +295,10 @@ public class Vista {
         return rol;
     }
 
+    /**
+     * Método que sirve para pedir las opciones del menu
+     * @return int con la opcion
+     */
     public int askManagementOptions(){
         int option;
         show(MANAGEMENT_OPTIONS);
@@ -262,7 +311,10 @@ public class Vista {
         return option;
     }
 
-    //Ask de Proves
+    /**
+     * Método que sirve para pedir la opcion del menu de pruevas
+     * @return char con la opcion
+     */
     public char askTrialOption(){
         char option;
         show(TRIAL_OPTION);
@@ -275,6 +327,10 @@ public class Vista {
         return option;
     }
 
+    /**
+     * Método que sirve para escoger el tipo de prueva
+     * @return int con el tipo escogido
+     */
     public int askTrialType(){
         int option;
 
@@ -288,6 +344,12 @@ public class Vista {
         } while (option < 1 || option > 4);
         return option;
     }
+
+    /**
+     * Método que sirve para escoger una opcion de pruevas
+     * @param numProves int con el numero de pruevas
+     * @return int de la opcion escogida
+     */
     public int askCurrentTrialsOption(int numProves){
         int option;
 
@@ -301,6 +363,11 @@ public class Vista {
         return option;
     }
 
+    /**
+     * Método que sirve para escoger una opcion de ediciones
+     * @param numEdicions int con el numero de ediciones
+     * @return int de la opcion escogida
+     */
     public int askCurrentEditionsOption(int numEdicions){
         int option;
 
@@ -314,7 +381,10 @@ public class Vista {
         return option;
     }
 
-    //Ask d'Edicions
+    /**
+     * Método que sirve para escoger la opcion del menu de ediciones
+     * @return char con la opcion escogida
+     */
     public char askEditionOption(){
         char option;
         show(EDITION_OPTIONS);
@@ -327,11 +397,21 @@ public class Vista {
         return option;
     }
 
+    /**
+     * Método que sirve para pedir y devolver el año de creacion
+     * @param current_year int del año actual
+     * @return int del año introducido
+     */
     public int askCreationYear(int current_year){
         show(CREATION_YEAR);
         return askEditionYear(current_year);
     }
 
+    /**
+     * Método que sirve para coger y comprobar el año introducido con el actual
+     * @param current_year int del año actual
+     * @return int del año recogido
+     */
     public int askEditionYear(int current_year){
         int year;
         do {
@@ -343,6 +423,10 @@ public class Vista {
         return year;
     }
 
+    /**
+     * Método que sirve para pedir los jugadores iniciales
+     * @return int de los jugadores
+     */
     public int askInitialPlayers(){
         int players;
         show(INITIAL_PLAYERS);
@@ -355,6 +439,10 @@ public class Vista {
         return players;
     }
 
+    /**
+     * Método que sirve para pedir el numero de pruebas
+     * @return int del numero de pruebas
+     */
     public int askNumTrials(){
         int numTrials;
         show(NUM_TRIALS);
@@ -367,6 +455,8 @@ public class Vista {
         return numTrials;
     }
 
+
+    //ToDo -> borrar si no se usa
     public int askCurrentTrialsSelection(int numProves, int i){
         int trialPicked;
 
@@ -380,11 +470,20 @@ public class Vista {
         return trialPicked;
     }
 
+    /**
+     * Método que sirve para pedir y devolver el año de duplicacion
+     * @param current_year int del año actual
+     * @return int de el año introducido
+     */
     public int askDuplicationYear(int current_year){
         show(DUPLICATION_YEAR);
         return askEditionYear(current_year);
     }
 
+    /**
+     * Método que sirve para pedir y devolver los jugadores duplicados
+     * @return int de los jugadores introducidos
+     */
     public int askDuplicationPlayers(){
         int players;
         show(DUPLICATION_PLAYERS);
@@ -397,55 +496,109 @@ public class Vista {
         return players;
     }
 
+    /**
+     * Método que sirve para pedir el año para borrar una edicion
+     * @param current_year int del año actual
+     * @return int del año introducido
+     */
     public int askDeleteEditionYear(int current_year){
         show(EDITION_YEAR_DELETE);
         return askEditionYear(current_year);
     }
 
-    //Show COMPOSITOR
+    /**
+     * Método que sirve para mostrar el mensaje de que entramos en el mode management
+     */
     public void showManagement(){
         show(MANAGEMENT);
     }
+
+    /**
+     * Método que sirve para mostrar el mensaje de que cerramos el programa
+     */
     public void showShutDown(){
         show(SHUTTING_DOWN);
     }
+    //todo -> si no se usa se borra
     public void showExecution(){
         show(EXECUTION);
     }
 
-    //Show d'Errors
+    /**
+     * Método que sirve para mostrar un String
+     * @param cadena String a mostrar
+     */
     public void show(String cadena){
         System.out.print(cadena);
     }
+
+    /**
+     * Método que sirve para mostrar el banner principal del juego
+     */
     public void showBanner(){
         show(BANNER);
     }
+
+    /**
+     * Método que sirve para mostrar errores
+     */
     public void showError(){
         show(ERROR);
     }
+
+    /**
+     * Método que sirve para mostrar un error de no coincidencia de prueba
+     */
     public void showTrialMatchError(){
         show(TRIAL_MATCH_ERROR);
     }
+
+    /**
+     * Método que sirve para mostrar un error de no coincidencia de edicion
+     */
     public void showEditionMatchError(){
         show(EDITION_MATCH_ERROR);
     }
+
+    /**
+     * Método que sirve para mostrar un error de un nombre
+     */
     public void showNameError(){
         show(NAME_ERROR);
     }
+
+    /**
+     * Método que sirve para mostrar un error de un año
+     */
     public void showYearError(){
         show(YEAR_ERROR);
     }
+
+    /**
+     * Método que sirve para mostrar un error de que no hay pruebas
+     */
     public void showAbsenceOfTrials(){
         show(ABSENCE_OF_TRIALS);
     }
+
+    /**
+     * Método que sirve para mostrar un error de que no hay ediciones
+     */
     public void showAbsenceOfEditions(int year){
         System.out.printf(ABSENCE_OF_EDITIONS_FORMAT, year);
     }
 
-    //Show de Proves
+    /**
+     * Método que sirve para mostrar un mensaje de pruebas actuales antes de listar estas
+     */
     public void showTrialsMsg(){
         show(CURRENT_TRIALS);
     }
+
+    /**
+     * Método que sirve para mostrar las pruebas actuales
+     * @param prova LinkedList de tipo prueba con la informacion de las pruebas que vamos a mostrar
+     */
     public void showCurrentTrials(LinkedList<Prova> prova){
         int i;
 
@@ -457,6 +610,10 @@ public class Vista {
         show("\n\n\t" + (i + 1) + ") Back");
     }
 
+    /**
+     * Método que sirve para mostrar la prueba seleccionada
+     * @param selectedProva la prueba seleccionada que queremos mostrar
+     */
     public void showSelectedListedTrial(Prova selectedProva){
         String[] info = selectedProva.getInfo();
         if (selectedProva instanceof ProvaPublicacio)
@@ -472,30 +629,60 @@ public class Vista {
             System.out.printf(TRIAL_BUDGET_INFO_FORMAT, info[0], info[1], info[2], info[3]);
 
     }
+
+    /**
+     * Método que sirve para mostrar el banner de las pruebas
+     */
     public void showTrialsBanner(){
         show(TRIALS_BANNER);
     }
+
+    /**
+     * Método que sirve para mostrar un mensaje de que la prueba se ha creado correctamente
+     */
     public void showTrialSuccessful(){
         show(TRIAL_SUCCESSFUL);
     }
+
+    /**
+     * Método que sirve para preguntar que prueba queremos borrar
+     */
     public void showTrialDelete(){
         show(TRIAL_DELETE);
     }
+
+    /**
+     * Método que sirve para mostrar un mensaje de que la prueba se ha borrado correctamente
+     */
     public void showTrialDeleted(){
         show(TRIAL_DELETED);
     }
+
+    /**
+     * Método que sirve para avisar de que la prueba que queremos borrar esta en uso y por lo tanto no la podemos borrar
+     */
     public void showProvaEnUs(){
         show(TRIAL_BEEING_USED);
     }
 
-
-    //Show d'Edicions
+    /**
+     * Método que sivre para mostrar un mensaje de que la edicion se ha creado
+     */
     public void showEditionSuccessful(){
         show(EDITION_SUCCESSFUL);
     }
+
+    /**
+     * Método que sirve para mostrar un mensaje de ediciones actuales antes de listar estas
+     */
     public void showEditionMsg(){
         show(CURRENT_EDITIONS);
     }
+
+    /**
+     * Método que sirve para mostrar las ediciones actuales
+     * @param edicions LinkedList de tipo edicio con la informacion de las ediciones que vamos a mostrar
+     */
     public void showCurrenEditions(LinkedList<Edicio> edicions){
         int i;
 
@@ -506,6 +693,12 @@ public class Vista {
         }
         show("\n\n\t" + (i + 1) + ") Back");
     }
+
+    /**
+     * Método que sirve para mostrar la edicion seleccionada
+     * @param selectedEdition la prueba seleccionada que queremos mostrar
+     * @param proves LinkedList de las pruebas
+     */
     public void showSelectedListedEdition(Edicio selectedEdition, LinkedList<Prova> proves){
         System.out.printf(EDITION_INFO_FORMAT, selectedEdition.getAny(), selectedEdition.getTotalJugadors());
         int i;

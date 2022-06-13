@@ -120,12 +120,9 @@ public class EdicioDAO {
             JsonReader reader = new JsonReader(fr);
             Edicio[] edicioArray = gson.fromJson(reader,Edicio[].class);
             return edicioArray;
-
-
         } catch(FileNotFoundException e){
             e.printStackTrace();
         }
-
         return null;
     }
 }

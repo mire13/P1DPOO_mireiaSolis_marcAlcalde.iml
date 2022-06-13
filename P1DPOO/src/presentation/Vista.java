@@ -712,18 +712,41 @@ public class Vista {
 
         show("\n\n");
     }
+
+    /**
+     * Método que sirve para preguntar qué edicion queremos clonar
+     */
     public void showCloneEdition(){
         show(EDITION_CLONE);
     }
+
+    /**
+     * Método que sirve para mostrar un mensaje de que la edicion se ha clonado satisfactoriamente
+     */
     public void showCloneSuccessful(){
         show(CLONE_SUCCESSFUL);
     }
+
+    /**
+     * Método que sirve para preguntar qué edicion quiere eliminar
+     */
     public void showEditionDelete(){
         show(EDITION_DELETE);
     }
+
+    /**
+     * Método que sirve para mostrar un mensaje de que la edicion se ha eliminado
+     */
     public void showEditionDeleted(){
         show(EDITION_DELETED);
     }
+
+    /**
+     * Método que sirve para escoger una prueba y devolverla
+     * @param proves LinkedList de tipo prueba
+     * @param numProves int con el numero de pruebas
+     * @return int[] array de ints
+     */
     public int[] showPickTrials(LinkedList<Prova> proves, int numProves){
         // Mostra proves disponibles
         for(int i = 0; i < proves.size() ;i++) {
@@ -750,22 +773,39 @@ public class Vista {
         return p;
     }
 
-    //CONDUCTOR
+    /**
+     * Método que sirve para mostrar el banner de las pruebas
+     * @param year int con el año para mostrarlo
+     */
     public void showTrialsTimeBanner(int year){
         System.out.printf(TRIALS_TIME_BANNER_FORMAT, year);
     }
+
+    /**
+     * Método que sirve para mostrar la prueba que se esta ejecutando
+     * @param num int con el estado
+     * @param nom String con el nombre
+     */
     public void showRunningTrial(int num, String nom){
         System.out.printf(TRIALS_RUNNING_FORMAT, num, nom);
     }
+
+    /**
+     * Método que sirve para mostrar el nombre del jugador
+     * @param nom String con el nombre
+     */
     public void showSubmission(String nom){
         System.out.printf(SUBMISSION_FORMAT, nom);
     }
+    //todo -> borrar si no se usa
     public void showAccepted(int nousPI){
         System.out.printf(ACCEPTED_FORMAT, nousPI);
     }
+    //todo -> borrar si no se usa
     public void showRevised(){
         show(REVISED);
     }
+    //todo -> borrar si no se usa
     public void showRejected(int nousPI){
         if (nousPI < 0){
             nousPI = 0;
@@ -776,11 +816,21 @@ public class Vista {
         }
     }
 
+    /**
+     * Método que sirve para preguntar el nombre del jugador
+     * @param index int con el indice
+     * @param total int con el total de jugadores
+     * @return String con el nombre
+     */
     public String askPlayersName(int index, int total){
         System.out.printf(PLAYERS_NAME, index, total);
         return scanner.nextLine();
     }
 
+    /**
+     * Método que sirve para preguntar si se quiere continuar
+     * @return boolean para saber si debe continuar
+     */
     public boolean askIfContinue(){
         String response;
         boolean continuar = false;
@@ -799,27 +849,59 @@ public class Vista {
         }while(!Objects.equals(response, "YES") && !Objects.equals(response, "NO"));
         return continuar;
     }
+
+    /**
+     * Método que sirve para mostrar un mensaje anunciando los jugadores que han perdido
+     * @param any año de la prueba
+     */
     public void showPlayersLost(int any){
         System.out.printf(LOST_FORMAT, any);
     }
+
+    /**
+     * Método que sirve para mostrar un mensaje anunciando los jugadores que han ganado
+     * @param any año de la prueba
+     */
     public void showPlayersWon(int any){
         System.out.printf(WIN_FORMAT, any);
     }
+
+    /**
+     * Método para anunciar que el juego se ha parado
+     */
     public void showGameStopped(){
         show(GAME_STOPPED);
     }
+
+    /**
+     * Método para mostrar el cambio de ingeniero a master
+     * @param nom String con el nombre
+     */
     public void showEnginyerCanviaMaster(String nom) {
         System.out.printf(ENGINEER_TO_MASTER, nom);
     }
+
+    /**
+     * Método que sirve para mostrar el cambio de master a doctor
+     * @param nom String con el nombre
+     */
     public void showMasterCanviaDoctor(String nom) {
         System.out.printf(MASTER_TO_DOCTOR, nom);
     }
 
+    /**
+     * Método que sirve para preguntar y recoger el nombre del master
+     * @return String con el nombre
+     */
     public String askMasterName() {
         show(MASTER_NAME);
         return scanner.nextLine();
     }
 
+    /**
+     * Método que sirve para preguntar los creditos
+     * @return int con el numero de créditos
+     */
     public int askCredits() {
         show(MASTER_CREDITS);
         int credits = 0;
@@ -832,6 +914,10 @@ public class Vista {
         return credits;
     }
 
+    /**
+     * Método que sirve para preguntar y devolver la probabilidad
+     * @return int con la probabilidad
+     */
     public int askCreditsProbability() {
         show(MASTER_PROBABILITY);
         int probabilitat = 0;
@@ -844,11 +930,19 @@ public class Vista {
         return probabilitat;
     }
 
+    /**
+     * Método que sirve para preguntar y devolver el campo del doctorado
+     * @return String con el campo del doctorado
+     */
     public String askDoctoralField() {
         show(DOCTOR_FIELD);
         return scanner.nextLine();
     }
 
+    /**
+     * Método que sirve para preguntar la dificultad
+     * @return int con la dificultad
+     */
     public int askDificultat() {
         show(DOCTOR_DIFFICULTY);
         int dificultat = 0;
@@ -861,11 +955,19 @@ public class Vista {
 
     }
 
+    /**
+     * Método que sirve para pedir y recoger la entidad
+     * @return String con la entidad
+     */
     public String askEntitat() {
         show(BUDGET_ENTITY);
         return scanner.nextLine();
     }
 
+    /**
+     * Método que sirve para preguntar y recoger el presupuesto
+     * @return int con el presupuesto
+     */
     public int askPresupost() {
         show(BUDGET_AMOUNT);
         int presupost = 0;
@@ -877,34 +979,69 @@ public class Vista {
         return presupost;
     }
 
+    /**
+     * Método que sirve para mostrar resultados del master
+     * @param nom String con el nombre
+     * @param creditsSuperats int con los creditos superados
+     * @param creditsTotals int con los creditos totales
+     */
     public void showMasterStudy(String nom, int creditsSuperats, int creditsTotals) {
         System.out.printf(MASTER_FORMAT, nom, creditsSuperats, creditsTotals);
     }
 
+    /**
+     * Método que sirve para mostrar los puntos cuando ha fallado el master
+     * @param pi int con la puntuacion
+     */
     public void showMasterFallat(int pi) {
         System.out.printf(MASTER_FAIL, pi);
     }
 
+    /**
+     * Método que sirve para mostrar los puntos cuando ha superado el master
+     * @param pi int con la puntuacion
+     */
     public void showMasterSuperat(int pi) {
         System.out.printf(MASTER_SUCCESS, pi);
     }
 
+    /**
+     * Método que sirve para mostrar los puntos cuando ha superado el doctorado
+     * @param pi int con la puntuacion
+     * @param nom String con el nombre
+     */
     public void showDoctorSuperat(String nom, int pi) {
         System.out.printf(DOCTOR_SUCCESS, nom, pi);
     }
 
+    /**
+     * Método que sirve para mostrar los puntos cuando ha fallado el doctorado
+     * @param pi int con la puntuacion
+     * @param nom String con el nombre
+     */
     public void showDoctorFallat(String nom, int pi) {
         System.out.printf(DOCTOR_FAIL, nom, pi);
     }
 
+    /**
+     * Método que sirve para anunciar la superacion del presupuesto
+     */
     public void showPresupostSuperat() {
         show(PRESUPOST_APROVAT);
     }
 
+    /**
+     * Método que sirve para anunciar que el presupuesto ha sido fallado
+     */
     public void showPresupostFallat() {
         show(PRESUPOST_REBUTJAT);
     }
 
+    /**
+     * Método que sirve para mostrar el nombre y los puntos ganados del presupuesto
+     * @param nom String con el nombre
+     * @param pi int con los puntos
+     */
     public void showPresupostPuntsGuanyats(String nom, int pi) {
         System.out.printf(PRESUPOST_PUNTS, nom, pi);
     }

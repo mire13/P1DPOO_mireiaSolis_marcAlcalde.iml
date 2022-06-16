@@ -3,7 +3,7 @@ package business;
 /**
  * Clase generada por la herencia del Jugador con unos atributos diferentes
  */
-public class Doctor extends Jugador {
+public class Doctor extends Master {
 
     /**
      * Constructor para crear un nuevo jugador tipo Doctor

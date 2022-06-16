@@ -2,7 +2,7 @@ package business;
 /**
  * Clase generada por la herencia del Jugador con unos atributos diferentes
  */
-public class Master extends Jugador {
+public class Master extends Enginyer {
     /**
      * Constructor que genera un nuevo jugador de tipo Master
      * @param nom String que contiene el número del jugador

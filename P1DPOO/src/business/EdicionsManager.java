@@ -1,6 +1,6 @@
 package business;
 
-import persistance.EdicioDAO;
+import persistance.EdicioJsonDAO;
 
 import java.util.LinkedList;
 
@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class EdicionsManager {
 
     private LinkedList<Edicio> edicions;
-    private EdicioDAO edicioDAO;
+    private EdicioJsonDAO edicioDAO;
 
     private boolean isCSV;
 
@@ -172,7 +172,7 @@ public class EdicionsManager {
     public void llegir(LinkedList<Prova> provesList, boolean isCSV) {
         setCSV(isCSV);
         String[] lines;
-        edicioDAO = new EdicioDAO(isCSV());
+        edicioDAO = new EdicioJsonDAO(isCSV());
         if (isCSV()){
             lines = edicioDAO.llegirCSV();
             // Itera per cada linia de l'arxiu

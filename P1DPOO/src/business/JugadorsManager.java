@@ -1,6 +1,6 @@
 package business;
 
-import persistance.JugadorDAO;
+import persistance.JugadorJsonDAO;
 import java.util.ArrayList;
 
 /**
@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class JugadorsManager {
 
     private ArrayList<Jugador> jugadors;
-    private JugadorDAO jugadorDAO;
+    private JugadorJsonDAO jugadorDAO;
 
     /**
      * Constructor para inicializar la lista de jugadores y del DAO
      */
     public JugadorsManager(){
-        this.jugadorDAO = new JugadorDAO();
+        this.jugadorDAO = new JugadorJsonDAO();
         this.jugadors = new ArrayList<Jugador>();
     }
 

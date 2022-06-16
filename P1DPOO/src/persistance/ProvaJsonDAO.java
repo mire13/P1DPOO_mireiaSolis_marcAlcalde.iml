@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Clase que contiene los métodos implementados por los ficheros de pruebas
  */
-public class ProvaDAO {
+public class ProvaJsonDAO {
     private LinkedList<Prova> listProves;
     private final String PATH = System.getProperty("user.dir") + "/files/";
 
@@ -36,7 +36,7 @@ public class ProvaDAO {
      * Constructor por defecto
      * @param isCSV boolean para saber si es CSV o JSON
      */
-    public ProvaDAO (boolean isCSV) {
+    public ProvaJsonDAO(boolean isCSV) {
         listProves = new LinkedList<>();
         if (!isCSV) {
             //Publicacio Article

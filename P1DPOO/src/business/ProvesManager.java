@@ -1,6 +1,6 @@
 package business;
 
-import persistance.ProvaDAO;
+import persistance.ProvaJsonDAO;
 import java.util.LinkedList;
 
 /**
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class ProvesManager {
 
     private LinkedList<Prova> proves;
-    private ProvaDAO provaDAO;
+    private ProvaJsonDAO provaDAO;
     private boolean isCSV;
 
     /**
@@ -117,7 +117,7 @@ public class ProvesManager {
      * @param isCSV boolean para saber si leer CSV o JSON
      */
     public void llegir(boolean isCSV) {
-        provaDAO = new ProvaDAO(isCSV);
+        provaDAO = new ProvaJsonDAO(isCSV);
         this.isCSV = isCSV;
         String[] lines;
         if (this.isCSV) {

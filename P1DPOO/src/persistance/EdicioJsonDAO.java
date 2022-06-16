@@ -1,28 +1,31 @@
 package persistance;
 
 import business.Edicio;
-import business.Jugador;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
- * Clase que contiene los métodos implementados por los ficheros de jugadores
+ * Clase que contiene los métodos implementados por los ficheros de ediciones
  */
-public class JugadorDAO {
-
-    private final String PATH = System.getProperty("user.dir") + "/files/";
+public class EdicioJsonDAO {
+    private final static String PATH_EDICIONS_CSV = "P1DPOO/files/edicions.csv";
+    private final static String PATH_EDICIONS_JSON = "P1DPOO/files/edicions.json";
 
     /**
-     * Método que sirve para chekear el path
+     * Constructor por defecto
+     * @param isCSV boolean para saber si es CSV o JSON
      */
-    private void checkPath() {
-        File dir = new File(PATH);
-        if (!dir.exists()) {
-            dir.mkdirs();
+    public EdicioJsonDAO(boolean isCSV) {
+        if (!isCSV) {
+            llegirJSON();
+        } else {
+            llegirCSV();
         }
     }
 
@@ -32,7 +35,6 @@ public class JugadorDAO {
      */
     // Escriure
     public void escriure(String[] info) {
-        checkPath();
         escriureCSV(info);
     }
 
@@ -43,7 +45,7 @@ public class JugadorDAO {
     public void escriureCSV(String[] info) {
         try {
             // Obre el fitxer en mode d'escriptura
-            FileWriter file = new FileWriter(PATH + "jugadors.csv");
+            FileWriter file = new FileWriter(PATH_EDICIONS_CSV);
 
             // Itera per cada linea donada i registrala a l'arxiu CSV
             for (String s : info) {
@@ -60,10 +62,17 @@ public class JugadorDAO {
 
     /**
      * Método que sirve para escribir en JSON
-     * @param info String con la información
+     * @param ed LinkedList de las ediciones
      */
-    public void escriureJSON(String[] info) {
-
+    public void escriureJSON(LinkedList<Edicio> ed) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            FileWriter writer = new FileWriter(PATH_EDICIONS_JSON);
+            gson.toJson(ed, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -74,11 +83,11 @@ public class JugadorDAO {
         // Comprova si l'arxiu existeix
         ArrayList<String> lines = new ArrayList<>();
         try {
-            File f = new File(PATH + "jugadors.csv");
+            File f = new File(PATH_EDICIONS_CSV);
 
             if (f.exists()) {
                 // Obre el fitxer per llegir
-                FileReader file = new FileReader(PATH + "jugadors.csv");
+                FileReader file = new FileReader(PATH_EDICIONS_CSV);
                 Scanner scan = new Scanner(file);
 
                 // Itera per cada linea i afegeix-la a la lista
@@ -102,11 +111,18 @@ public class JugadorDAO {
 
     /**
      * Método que sirve para leer del fichero JSON
-     * @return String con la informacion
+     * @return Edicio[] con la informacion
      */
-    public String[] llegirJSON() {
+    public Edicio[] llegirJSON() {
+        try {
+            FileReader fr = new FileReader(new File("P1DPOO/files/edicions.json"));
+            Gson gson = new Gson();
+            JsonReader reader = new JsonReader(fr);
+            Edicio[] edicioArray = gson.fromJson(reader,Edicio[].class);
+            return edicioArray;
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
         return null;
     }
-
-
 }

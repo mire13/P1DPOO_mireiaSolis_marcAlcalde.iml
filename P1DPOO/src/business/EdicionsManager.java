@@ -1,5 +1,7 @@
 package business;
 
+import persistance.EdicioCsvDAO;
+import persistance.EdicioDAO;
 import persistance.EdicioJsonDAO;
 
 import java.util.LinkedList;
@@ -10,14 +12,14 @@ import java.util.LinkedList;
 public class EdicionsManager {
 
     private LinkedList<Edicio> edicions;
-    private EdicioJsonDAO edicioDAO;
+    private EdicioDAO edicioDAO;
 
     private boolean isCSV;
 
     /**
      * Constructor para inicializar la lista de ediciones
      */
-    public EdicionsManager() {
+    public EdicionsManager(boolean isCSV) {
         this.edicions = new LinkedList<>();
     }
 
@@ -33,10 +35,8 @@ public class EdicionsManager {
     /**
      * Método que sirve para crear una edición y añadirla a la lista
      * @param edicio que contiene la informacion de edicion
-     * @param isCSV boolean para saber si es CSV o JSON
      */
-    public void creaEdicio(Edicio edicio, boolean isCSV) {
-        setCSV(isCSV);
+    public void creaEdicio(Edicio edicio) {
         edicions.add(edicio);
         if (isCSV){
             escriureCSV();
@@ -135,7 +135,7 @@ public class EdicionsManager {
      * Método para escribir en JSON en el fichero de ediciones
      */
     public void escriureJSON(){
-        edicioDAO.escriureJSON(edicions);
+        edicioDAO.escribir(edicions);
     }
 
     /**
@@ -194,16 +194,16 @@ public class EdicionsManager {
                 // Afegeix la nova prova a la llista
                 Edicio e = new Edicio(any, jugNum, provesNum, proves);
                 e.setCurrentState(state);
-                creaEdicio(e, isCSV());
+                creaEdicio(e);
             }
         } else if (!isCSV()){
-            Edicio[] e = edicioDAO.llegirJSON();
+            LinkedList<Edicio> e = edicioDAO.leer();
             if (e == null) {
-
+                // TODO deberia mostrar un mensaje de error pero creo que no pueden haber souts en el manager
             } else {
-                for (int i = 0; i < e.length; i++) {
+                for (int i = 0; i < e.size(); i++) {
                     //e[i].setCurrentState(state);
-                    creaEdicio(e[i], isCSV());
+                    creaEdicio(e.get(i));
                 }
             }
         }
@@ -225,5 +225,10 @@ public class EdicionsManager {
      */
     public void setCSV(boolean CSV) {
         isCSV = CSV;
+        if (isCSV) {
+            edicioDAO = new EdicioCsvDAO();
+        } else {
+            edicioDAO = new EdicioJsonDAO();
+        }
     }
 }

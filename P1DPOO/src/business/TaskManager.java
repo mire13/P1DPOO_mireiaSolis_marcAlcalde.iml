@@ -19,7 +19,7 @@ public class TaskManager {
      */
     public TaskManager() {
         provesManager = new ProvesManager();
-        edicionsManager = new EdicionsManager();
+        edicionsManager = new EdicionsManager(isCSV());
         jugadorsManager = new JugadorsManager();
     }
 
@@ -124,7 +124,7 @@ public class TaskManager {
      * @param edicio contiene la informacion de la edicion
      */
     public void crearEdicio(Edicio edicio) {
-        edicionsManager.creaEdicio(edicio, isCSV);
+        edicionsManager.creaEdicio(edicio);
     }
 
     /**
@@ -254,11 +254,21 @@ public class TaskManager {
     }
 
     /**
+     * Getter para saber si el CSV o no
+     *
+     * @return bolean si es CSV o no
+     */
+    public boolean isCSV() {
+        return isCSV;
+    }
+
+    /**
      * Setter para asignar si ha escogido csv o json como opcion de persistencia
      *
      * @param isCSV true si es csv false si es json
      */
     public void setCSV(boolean isCSV) {
         provesManager.setCSV(isCSV);
+        edicionsManager.setCSV(isCSV);
     }
 }

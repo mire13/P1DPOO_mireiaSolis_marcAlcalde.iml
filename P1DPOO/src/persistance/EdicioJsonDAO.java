@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -13,20 +14,14 @@ import java.util.ArrayList;
 /**
  * Clase que contiene los métodos implementados por los ficheros de ediciones
  */
-public class EdicioJsonDAO {
-    private final static String PATH_EDICIONS_CSV = "P1DPOO/files/edicions.csv";
+public class EdicioJsonDAO implements EdicioDAO{
     private final static String PATH_EDICIONS_JSON = "P1DPOO/files/edicions.json";
 
     /**
      * Constructor por defecto
-     * @param isCSV boolean para saber si es CSV o JSON
      */
-    public EdicioJsonDAO(boolean isCSV) {
-        if (!isCSV) {
-            llegirJSON();
-        } else {
-            llegirCSV();
-        }
+    public EdicioJsonDAO() {
+        leer();
     }
 
     /**
@@ -113,13 +108,23 @@ public class EdicioJsonDAO {
      * Método que sirve para leer del fichero JSON
      * @return Edicio[] con la informacion
      */
-    public Edicio[] llegirJSON() {
+    public LinkedList<Edicio> llegirJSON() {
+        return null;
+    }
+
+    @Override
+    public void escribir(LinkedList<Edicio> edicioLlista) {
+
+    }
+
+    @Override
+    public LinkedList<Edicio> leer() {
         try {
-            FileReader fr = new FileReader(new File("P1DPOO/files/edicions.json"));
+            FileReader fr = new FileReader(new File(PATH_EDICIONS_JSON));
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(fr);
             Edicio[] edicioArray = gson.fromJson(reader,Edicio[].class);
-            return edicioArray;
+            return new LinkedList<>(Arrays.asList(edicioArray));
         } catch(FileNotFoundException e){
             e.printStackTrace();
         }

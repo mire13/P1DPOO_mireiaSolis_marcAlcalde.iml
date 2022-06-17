@@ -13,10 +13,48 @@ import java.util.Scanner;
 public class EdicioCsvDAO implements EdicioDAO{
     private final static String PATH_EDICIONS_CSV = "P1DPOO/files/edicions.csv";
 
+    /**
+     * Constructor que lee las ediciones
+     */
+    public EdicioCsvDAO() {
+        leer();
+    }
 
     @Override
-    public void escribir(LinkedList<Edicio> edicioLlista) {
+    public void escribir(LinkedList<Edicio> edicions) {
+        String[] info = new String[edicions.size()];
+        int i = 0;
 
+        for (Edicio e : edicions) {
+            String aux = "";
+
+            aux += e.getAny() + ",";
+            aux += e.getTotalJugadors() + ",";
+            aux += e.getCurrentState() + ",";
+            aux += e.getTotalProves();
+
+            for (int j = 0; j < e.getProves().length; j++) {
+                aux += ",";
+                aux += e.getProves()[j];
+            }
+            info[i] = aux;
+            i++;
+        }
+        try {
+            // Obre el fitxer en mode d'escriptura
+            FileWriter file = new FileWriter(PATH_EDICIONS_CSV);
+
+            // Itera per cada linea donada i registrala a l'arxiu CSV
+            for (String s : info) {
+                file.write(s + "\n");
+            }
+            // Tanca el fitxer
+            file.close();
+
+        } catch (IOException e) {
+            System.out.println("An IO error occurred.");
+            e.printStackTrace();
+        }
     }
 
     @Override

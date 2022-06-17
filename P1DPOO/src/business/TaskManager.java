@@ -19,7 +19,7 @@ public class TaskManager {
      */
     public TaskManager() {
         provesManager = new ProvesManager();
-        edicionsManager = new EdicionsManager(isCSV());
+        edicionsManager = new EdicionsManager();
         jugadorsManager = new JugadorsManager();
     }
 
@@ -27,8 +27,8 @@ public class TaskManager {
      * Método que sirve para leer del fichero CSV al principio
      */
     public void leerCSV(){
-        provesManager.llegir(true);
-        edicionsManager.llegir(provesManager.getProves(), true);
+        provesManager.llegir();
+        edicionsManager.llegir();
         jugadorsManager.llegir(true);
         isCSV = true;
     }
@@ -37,8 +37,8 @@ public class TaskManager {
      * Método que sirve para leer del fichero JSON al principio
      */
     public void leerJSON() {
-        provesManager.llegir(false);
-        edicionsManager.llegir(provesManager.getProves(), false);
+        provesManager.llegir();
+        edicionsManager.llegir();
         jugadorsManager.llegir(false);
         isCSV = false;
     }
@@ -56,7 +56,7 @@ public class TaskManager {
      * @param prova contiene la informacion de la prueba
      */
     public void creaProva(Prova prova) {
-        provesManager.creaProva(prova, isCSV);
+        provesManager.creaProva(prova);
     }
 
     /**
@@ -76,7 +76,7 @@ public class TaskManager {
         for(Edicio e : edicionsManager.getEdicions()) {
             e.updateProves(i);
         }
-        edicionsManager.escriureCSV();
+        edicionsManager.escriure();
     }
 
     /**
@@ -206,7 +206,7 @@ public class TaskManager {
      */
     public void escriure() {
         provesManager.escriure();
-        edicionsManager.escriureCSV();
+        edicionsManager.escriure();
         jugadorsManager.escriure();
     }
 
@@ -253,6 +253,7 @@ public class TaskManager {
         jugadorsManager.netejarLlista();
     }
 
+    // TODO si no se usa a la basura
     /**
      * Getter para saber si el CSV o no
      *
@@ -268,7 +269,7 @@ public class TaskManager {
      * @param isCSV true si es csv false si es json
      */
     public void setCSV(boolean isCSV) {
-        provesManager.setCSV(isCSV);
-        edicionsManager.setCSV(isCSV);
+        provesManager.setPersistanceType(isCSV);
+        edicionsManager.setPersistanceType(isCSV);
     }
 }

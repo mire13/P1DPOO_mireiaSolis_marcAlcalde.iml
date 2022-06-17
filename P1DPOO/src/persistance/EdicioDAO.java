@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Interfície implementada en diferents clases per fer servir els mateixos mètodes per la llista de edicioons
+ * Interfície implementada en diferents clases per fer servir els mateixos mètodes per la llista de edicions
  */
 public interface EdicioDAO {
     /**

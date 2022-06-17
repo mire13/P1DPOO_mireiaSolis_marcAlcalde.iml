@@ -16,16 +16,13 @@ import java.util.ArrayList;
 /**
  * Clase que contiene los métodos implementados por los ficheros de pruebas
  */
-public class ProvaJsonDAO {
+public class ProvaJsonDAO implements ProvaDAO{
     private LinkedList<Prova> listProves;
-    private final String PATH = System.getProperty("user.dir") + "/files/";
 
     private final static String PATH_PUBLICACIO_LLISTA = "P1DPOO/files/publicacioLlista.json";
     private final static String PATH_ESTUDI_LLISTA = "P1DPOO/files/estudiLlista.json";
     private final static String PATH_TESI_LLISTA = "P1DPOO/files/tesiLlista.json";
     private final static String PATH_PRESUPOST_LLISTA = "P1DPOO/files/presupostLlista.json";
-
-    private final static String PATH_PROVES_CSV = "P1DPOO/files/proves.csv";
 
     private LinkedList<ProvaPublicacio> provaPublicacio;
     private LinkedList<ProvaEstudiMaster> provaEstudiMaster;
@@ -34,25 +31,22 @@ public class ProvaJsonDAO {
 
     /**
      * Constructor por defecto
-     * @param isCSV boolean para saber si es CSV o JSON
      */
-    public ProvaJsonDAO(boolean isCSV) {
+    public ProvaJsonDAO() {
         listProves = new LinkedList<>();
-        if (!isCSV) {
-            //Publicacio Article
-            llegeixPublicacioJSON();
 
-            // Estudi Master
-            llegeixEstudiMasterJSON();
+        //Publicacio Article
+        llegeixPublicacioJSON();
 
-            // Defensa Tesi
-            llegeixTesiDoctoralJSON();
+        // Estudi Master
+        llegeixEstudiMasterJSON();
 
-            //Sollicitud Pressupost
-            llegeixPresupostJSON();
-        } else {
-            llegirCSV();
-        }
+        // Defensa Tesi
+        llegeixTesiDoctoralJSON();
+
+        //Sollicitud Pressupost
+        llegeixPresupostJSON();
+
     }
 
     /**
@@ -122,118 +116,6 @@ public class ProvaJsonDAO {
     }
 
     /**
-     * Método que sirve para chekear el path
-     */
-    private void checkPath() {
-        File dir = new File(PATH);
-        if (!dir.exists())
-            dir.mkdirs();
-    }
-
-    /**
-     * Método que sirve para chekear el path y escribir en CSV
-     * @param info String con la informacion
-     */
-    public void escriure(String[] info) {
-        checkPath();
-        escriureCSV(info);
-    }
-
-    /**
-     * Método que sirve para escribir en CSV
-     * @param info String con la informacion
-     */
-    public void escriureCSV(String[] info) {
-        try {
-            // Obre el fitxer en mode d'escriptura
-            FileWriter file = new FileWriter(PATH_PROVES_CSV);
-
-            // Itera per cada linea donada i registrala a l'arxiu CSV
-            for (int i = 0; i < info.length; i++)
-                file.write(info[i] + "\n");
-
-            // Tanca el fitxer
-            file.close();
-
-        } catch (IOException e) {
-            System.out.println("An IO error occurred.");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Método que sirve para leer del fichero CSV
-     * @return String con la informacion
-     */
-    public String[] llegirCSV() {
-        // Comprova si l'arxiu existeix
-        ArrayList<String> lines = new ArrayList<>();
-        try {
-            File f = new File(PATH_PROVES_CSV);
-
-            if (f.exists()) {
-                // Obre el fitxer per llegir
-                FileReader file = new FileReader(PATH_PROVES_CSV);
-                Scanner scan = new Scanner(file);
-
-                // Itera per cada linea i afegeix-la a la lista
-                while (scan.hasNextLine()) {
-                    lines.add(scan.nextLine());
-                }
-
-                // Tanca el fitxer i l'scanner
-                file.close();
-                scan.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Convertir la llista a un array i retornar
-        String[] linesArray = new String[lines.size()];
-        lines.toArray(linesArray);
-        return linesArray;
-    }
-
-    /**
-     * Método que sirve para leer del fichero JSON
-     * @return LinkedList con la informacion de las pruebas
-     */
-    public LinkedList<Prova> llegirJSON() {
-        LinkedList<Prova> list = listProves;
-        return list;
-    }
-
-    /**
-     * Método que sirve para escribir en JSON
-     * @param proves LinkedList de las proves
-     */
-    public void escriureJSON(LinkedList<Prova> proves) {
-        String fileName = "";
-
-        switch (proves.get(proves.size() - 1).getClass().getSimpleName()) {
-            case "ProvaEstudiMaster" -> {
-                fileName = PATH_ESTUDI_LLISTA;
-                provaEstudiMaster.add((ProvaEstudiMaster) proves.get(proves.size() - 1));
-            }
-            case "ProvaPresupost" -> {
-                fileName = PATH_PRESUPOST_LLISTA;
-                provaPresupost.add((ProvaPresupost) proves.get(proves.size() - 1));
-            }
-            case "ProvaPublicacio" -> {
-                fileName = PATH_PUBLICACIO_LLISTA;
-                provaPublicacio.add((ProvaPublicacio) proves.get(proves.size() - 1));
-            }
-            case "ProvaTesiDoctoral" -> {
-                fileName = PATH_TESI_LLISTA;
-                provaTesiDoctoral.add((ProvaTesiDoctoral) proves.get(proves.size() - 1));
-            }
-        }
-        actualizaJSON(fileName);
-
-    }
-
-    /**
      * Método que sirve para actualizar el JSON
      * @param filename String con el nombre del fichero
      */
@@ -258,6 +140,63 @@ public class ProvaJsonDAO {
      * @param i int con el indice de la prueba a eliminar
      */
     public void eliminaProvaJSON(int i) {
+        String fileName = "";
+
+        switch (listProves.get(i).getClass().getSimpleName()) {
+            case "ProvaEstudiMaster" -> {
+                fileName = PATH_ESTUDI_LLISTA;
+                provaEstudiMaster.remove((ProvaEstudiMaster) listProves.get(i));
+            }
+            case "ProvaPresupost" -> {
+                fileName = PATH_PRESUPOST_LLISTA;
+                provaPresupost.remove((ProvaPresupost) listProves.get(i));
+            }
+            case "ProvaPublicacio" -> {
+                fileName = PATH_PUBLICACIO_LLISTA;
+                provaPublicacio.remove((ProvaPublicacio) listProves.get(i));
+            }
+            case "ProvaTesiDoctoral" -> {
+                fileName = PATH_TESI_LLISTA;
+                provaTesiDoctoral.remove((ProvaTesiDoctoral) listProves.get(i));
+            }
+        }
+        listProves.remove(i);
+        actualizaJSON(fileName);
+    }
+
+    @Override
+    public void escribir(LinkedList<Prova> proves) {
+        String fileName = "";
+
+        switch (proves.get(proves.size() - 1).getClass().getSimpleName()) {
+            case "ProvaEstudiMaster" -> {
+                fileName = PATH_ESTUDI_LLISTA;
+                provaEstudiMaster.add((ProvaEstudiMaster) proves.get(proves.size() - 1));
+            }
+            case "ProvaPresupost" -> {
+                fileName = PATH_PRESUPOST_LLISTA;
+                provaPresupost.add((ProvaPresupost) proves.get(proves.size() - 1));
+            }
+            case "ProvaPublicacio" -> {
+                fileName = PATH_PUBLICACIO_LLISTA;
+                provaPublicacio.add((ProvaPublicacio) proves.get(proves.size() - 1));
+            }
+            case "ProvaTesiDoctoral" -> {
+                fileName = PATH_TESI_LLISTA;
+                provaTesiDoctoral.add((ProvaTesiDoctoral) proves.get(proves.size() - 1));
+            }
+        }
+        actualizaJSON(fileName);
+    }
+
+    @Override
+    public LinkedList<Prova> leer() {
+        LinkedList<Prova> list = listProves;
+        return list;
+    }
+
+    @Override
+    public void elimina(LinkedList<Prova> proves, int i) {
         String fileName = "";
 
         switch (listProves.get(i).getClass().getSimpleName()) {

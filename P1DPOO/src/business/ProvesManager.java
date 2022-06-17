@@ -1,6 +1,7 @@
 package business;
 
-import persistance.ProvaJsonDAO;
+import persistance.*;
+
 import java.util.LinkedList;
 
 /**
@@ -9,8 +10,7 @@ import java.util.LinkedList;
 public class ProvesManager {
 
     private LinkedList<Prova> proves;
-    private ProvaJsonDAO provaDAO;
-    private boolean isCSV;
+    private ProvaDAO provaDAO;
 
     /**
      * Constructor para inicializar la lista de pruebas y del DAO
@@ -31,10 +31,8 @@ public class ProvesManager {
     /**
      * Método que sirve para crear una prueva y añadirla a la lista
      * @param prova que contiene la informacion de prueva
-     * @param isCSV boolean para saber si es CSV o JSON
      */
-    public void creaProva(Prova prova, boolean isCSV) {
-        this.isCSV = isCSV;
+    public void creaProva(Prova prova) {
         if (prova.getClass().getSimpleName().equals("ProvaEstudiMaster")){
             // Afegeix la nova prova a la llista
             proves.add(new ProvaEstudiMaster(prova.getInfo()[0], prova.getInfo()[2], Integer.parseInt(prova.getInfo()[3]), Integer.parseInt(prova.getInfo()[4])));
@@ -52,11 +50,7 @@ public class ProvesManager {
             proves.add(new ProvaTesiDoctoral(prova.getInfo()[0], prova.getInfo()[2], Integer.parseInt(prova.getInfo()[3])));
 
         }
-        if (this.isCSV){
-            escriure();
-        } else {
-            provaDAO.escriureJSON(proves);
-        }
+        provaDAO.escribir(proves);
     }
 
     /**
@@ -77,12 +71,8 @@ public class ProvesManager {
      * @param i int para saber cual eliminar
      */
     public void eliminaProva(int i) {
-        if (isCSV()) {
-            proves.remove(i);
-            escriure();
-        } else {
-            provaDAO.eliminaProvaJSON(i);
-        }
+        provaDAO.elimina(proves, i);
+        //proves.remove(i);
     }
 
     /**
@@ -101,92 +91,31 @@ public class ProvesManager {
     }
 
     /**
-     * Método para escribir en CSV en el fichero de pruebas
+     * Método para escribir en la DAO todas las pruebas
      */
     public void escriure() {
-        String[] info = new String[proves.size()];
-
-        for (int i = 0; i < proves.size(); i++)
-            info[i] = proves.get(i).getInfoCSV();
-
-        provaDAO.escriure(info);
+        provaDAO.escribir(proves);
     }
 
     /**
      * Método para leer los ficheros de pruebas
-     * @param isCSV boolean para saber si leer CSV o JSON
      */
-    public void llegir(boolean isCSV) {
-        provaDAO = new ProvaJsonDAO(isCSV);
-        this.isCSV = isCSV;
-        String[] lines;
-        if (this.isCSV) {
-             lines = provaDAO.llegirCSV();
-            // Itera per cada linia de l'arxiu
-            for (int i = 0; i < lines.length; i++) {
-                // Separa la linia per cada coma
-                String[] line = lines[i].split(",");
+    public void llegir() {
+        proves = provaDAO.leer();
 
-                // Converteix cada element en el tipus de dada corresponent
-                String type = line[0];
 
-                if (type.equals("Prova Publicacio")) {
-                    String name = line[1];
-                    String journal = line[2];
-                    String quartile = line[3];
-                    int acceptance = Integer.parseInt(line[4]);
-                    int revision = Integer.parseInt(line[5]);
-                    int rejection = Integer.parseInt(line[6]);
+    }
 
-                    // Afegeix la nova prova a la llista
-                    creaProva(new ProvaPublicacio(name, journal, quartile, acceptance, revision, rejection), this.isCSV);
-
-                } else if (type.equals("Prova Estudi Master")) {
-                    String name = line[1];
-                    String masterNom = line[2];
-                    int credits = Integer.parseInt(line[3]);
-                    int probabilitat = Integer.parseInt(line[4]);
-
-                    // Afegeix la nova prova a la llista
-                    creaProva(new ProvaEstudiMaster(name, masterNom, credits, probabilitat), this.isCSV);
-
-                } else if (type.equals("Prova Tesi Doctoral")) {
-                    String name = line[1];
-                    String camp = line[2];
-                    int dificultat = Integer.parseInt(line[3]);
-
-                    // Afegeix la nova prova a la llista
-                    creaProva(new ProvaTesiDoctoral(name, camp, dificultat), this.isCSV);
-
-                } else if (type.equals("Prova Presupost")) {
-                    String name = line[1];
-                    String entitat = line[2];
-                    int presupost = Integer.parseInt(line[3]);
-
-                    // Afegeix la nova prova a la llista
-                    creaProva(new ProvaPresupost(name, entitat, presupost), this.isCSV);
-                }
-            }
+    /**
+     * Metodo que hace una nueva instancia del CsvDAO o JsonDAO en funcion de lo que escoja el usuario
+     *
+     * @param isCSV boolean para asignar el valor, true si es CSV false si es Json
+     */
+    public void setPersistanceType(boolean isCSV) {
+        if (isCSV) {
+            provaDAO = new ProvaCsvDAO();
         } else {
-            proves = provaDAO.llegirJSON();
+            provaDAO = new ProvaJsonDAO();
         }
-    }
-
-    /**
-     * Getter para saber si ha escogido CSV o no como opcion de persistencia
-     *
-     * @return true si es CSV o false si no
-     */
-    public boolean isCSV() {
-        return isCSV;
-    }
-
-    /**
-     * Setter para asignar true si es CSV o false si es Json
-     *
-     * @param CSV boolean para asignar el valor
-     */
-    public void setCSV(boolean CSV) {
-        isCSV = CSV;
     }
 }

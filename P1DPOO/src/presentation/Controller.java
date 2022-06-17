@@ -35,8 +35,8 @@ public class Controller {
         char opcio;
         int fichero = vista.pedirFichero();
         if (fichero == 1) {
-            taskManager.leerCSV();
             taskManager.setCSV(true);
+            taskManager.leerCSV();
         } else if (fichero == 2){
             taskManager.setCSV(false);
             taskManager.leerJSON();

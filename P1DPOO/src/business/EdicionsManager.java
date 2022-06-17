@@ -14,12 +14,10 @@ public class EdicionsManager {
     private LinkedList<Edicio> edicions;
     private EdicioDAO edicioDAO;
 
-    private boolean isCSV;
-
     /**
      * Constructor para inicializar la lista de ediciones
      */
-    public EdicionsManager(boolean isCSV) {
+    public EdicionsManager() {
         this.edicions = new LinkedList<>();
     }
 
@@ -38,17 +36,12 @@ public class EdicionsManager {
      */
     public void creaEdicio(Edicio edicio) {
         edicions.add(edicio);
-        if (isCSV){
-            escriureCSV();
-        } else {
-            escriureJSON();
-        }
+        escriure();
     }
 
-    /*
-    public void addProvaToEdicio(Prova prova) {
-        edicions.get(edicions.size() - 1).GetProves().add(prova);
-    }*/
+    public void escriure() {
+        edicioDAO.escribir(edicions);
+    }
 
     /**
      * Método que sirve para duplicar una edicion
@@ -59,11 +52,7 @@ public class EdicionsManager {
     public void duplicarEdicio(int opcio, int any, int numJugadors) {
         Edicio novaEdicio = new Edicio(any, numJugadors, edicions.get(opcio - 1).getTotalProves(), edicions.get(opcio - 1).getProves());
         edicions.add(novaEdicio);
-        if (isCSV()) {
-            escriureCSV();
-        } else {
-            escriureJSON();
-        }
+        escriure();
     }
 
     /**
@@ -72,11 +61,7 @@ public class EdicionsManager {
      */
     public void eliminaEdicio(int i) {
         edicions.remove(i);
-        if (isCSV()) {
-            escriureCSV();
-        } else {
-            escriureJSON();
-        }
+        escriure();
     }
 
     /**
@@ -96,10 +81,11 @@ public class EdicionsManager {
      * @param edicioEnCurs informacion de la edicion en curso
      */
     public void actualitzaEdicions(int IDEdicioActual, boolean lost, Edicio edicioEnCurs) {
+        //TODO si no se usa eliminar esta funcion
         edicions.remove(IDEdicioActual);
         if (!lost)
             edicions.add(IDEdicioActual, edicioEnCurs);
-        escriureCSV();
+        escriure();
     }
 
     /**
@@ -131,100 +117,28 @@ public class EdicionsManager {
         return false;
     }
 
-    /**
-     * Método para escribir en JSON en el fichero de ediciones
-     */
-    public void escriureJSON(){
-        edicioDAO.escribir(edicions);
-    }
 
     /**
-     * Método para escribir en CVS en el fichero de ediciones
+     * Método para leer los ficheros de ediciones i crear las ediciones
      */
-    public void escriureCSV() {
-        String[] info = new String[edicions.size()];
-        int i = 0;
-
-        for (Edicio e : edicions) {
-            String aux = "";
-
-            aux += e.getAny() + ",";
-            aux += e.getTotalJugadors() + ",";
-            aux += e.getCurrentState() + ",";
-            aux += e.getTotalProves();
-
-            for (int j = 0; j < e.getProves().length; j++) {
-                aux += ",";
-                aux += e.getProves()[j];
-            }
-            info[i] = aux;
-            i++;
-        }
-
-        edicioDAO.escriure(info);
-    }
-
-    /**
-     * Método para leer los ficheros de ediciones
-     * @param provesList LinkedList de tipo Prueba
-     * @param isCSV boolean para saber si leer CSV o JSON
-     */
-    public void llegir(LinkedList<Prova> provesList, boolean isCSV) {
-        setCSV(isCSV);
-        String[] lines;
-        edicioDAO = new EdicioJsonDAO(isCSV());
-        if (isCSV()){
-            lines = edicioDAO.llegirCSV();
-            // Itera per cada linia de l'arxiu
-            for (int i = 0; i < lines.length; i++) {
-                // Separa la linia per cada coma
-                String[] line = lines[i].split(",");
-
-                // Converteix cada element en el tipus de dada corresponent
-                int any = Integer.parseInt(line[0]);
-                int jugNum = Integer.parseInt(line[1]);
-                int state = Integer.parseInt(line[2]);
-                int provesNum = Integer.parseInt(line[3]);
-
-                int[] proves = new int[provesNum];
-                for(int p=0; p<provesNum; p++) {
-                    proves[p] = Integer.parseInt(line[4+p]);
-                }
-
-                // Afegeix la nova prova a la llista
-                Edicio e = new Edicio(any, jugNum, provesNum, proves);
-                e.setCurrentState(state);
-                creaEdicio(e);
-            }
-        } else if (!isCSV()){
-            LinkedList<Edicio> e = edicioDAO.leer();
-            if (e == null) {
-                // TODO deberia mostrar un mensaje de error pero creo que no pueden haber souts en el manager
-            } else {
-                for (int i = 0; i < e.size(); i++) {
-                    //e[i].setCurrentState(state);
-                    creaEdicio(e.get(i));
-                }
+    public void llegir() {
+        LinkedList<Edicio> edicionsDAO = edicioDAO.leer();
+        if (edicionsDAO == null) {
+            // TODO deberia mostrar un mensaje de error pero creo que no pueden haber souts en el manager
+        } else {
+            for (int i = 0; i < edicionsDAO.size(); i++) {
+                //e[i].setCurrentState(state);
+                creaEdicio(edicionsDAO.get(i));
             }
         }
     }
 
     /**
-     * Getter para saber si ha escogido CSV o no como opcion de persistencia
+     * Metodo que hace una nueva instancia del CsvDAO o JsonDAO en funcion de lo que escoja el usuario
      *
-     * @return true si es CSV o false si no
+     * @param isCSV boolean para asignar el valor, true si es CSV false si es Json
      */
-    public boolean isCSV() {
-        return isCSV;
-    }
-
-    /**
-     * Setter para asignar true si es CSV o false si es Json
-     *
-     * @param CSV boolean para asignar el valor
-     */
-    public void setCSV(boolean CSV) {
-        isCSV = CSV;
+    public void setPersistanceType(boolean isCSV) {
         if (isCSV) {
             edicioDAO = new EdicioCsvDAO();
         } else {

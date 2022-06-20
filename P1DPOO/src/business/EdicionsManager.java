@@ -110,10 +110,8 @@ public class EdicionsManager {
     public void llegir() {
         LinkedList<Edicio> edicionsDAO = edicioDAO.leer();
         if (edicionsDAO == null) {
-            // TODO deberia mostrar un mensaje de error pero creo que no pueden haber souts en el manager
         } else {
             for (int i = 0; i < edicionsDAO.size(); i++) {
-                //e[i].setCurrentState(state);
                 creaEdicio(edicionsDAO.get(i));
             }
         }

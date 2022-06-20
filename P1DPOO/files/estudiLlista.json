@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "nomMaster": "Master in high",
+    "credits": 60,
+    "probabilitat": 40,
+    "nom": "Studying the MPWAR"
+  }
+]

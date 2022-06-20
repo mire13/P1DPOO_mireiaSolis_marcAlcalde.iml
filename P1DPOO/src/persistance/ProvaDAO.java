@@ -1,8 +1,6 @@
 package persistance;
 
-import business.Edicio;
 import business.Prova;
-
 import java.util.LinkedList;
 
 /**

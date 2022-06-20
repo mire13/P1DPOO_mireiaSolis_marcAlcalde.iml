@@ -1,10 +1,5 @@
 package persistance;
 
-import business.Edicio;
-import business.Jugador;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -107,6 +102,5 @@ public class JugadorJsonDAO {
     public String[] llegirJSON() {
         return null;
     }
-
 
 }

@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class ProvaCsvDAO implements ProvaDAO{
     private final static String PATH_PROVES_CSV = "P1DPOO/files/proves.csv";
 
-
     public ProvaCsvDAO() {
         leer();
     }

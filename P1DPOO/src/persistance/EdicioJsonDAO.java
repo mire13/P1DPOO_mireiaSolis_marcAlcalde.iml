@@ -8,8 +8,6 @@ import com.google.gson.stream.JsonReader;
 import java.io.*;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * Clase que contiene los métodos implementados por los ficheros de ediciones

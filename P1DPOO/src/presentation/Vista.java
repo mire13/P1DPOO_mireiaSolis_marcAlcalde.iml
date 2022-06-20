@@ -96,7 +96,7 @@ public class Vista {
     private final static String DOCTOR_SUCCESS  = "\t%s was successful. Congrats! PI count: %d\n";
     private final static String DOCTOR_FAIL  = "\t%s was not successful. Sorry... PI count: %d\n";
     private final static String PRESUPOST_APROVAT  = "\tThe research group got the budget!";
-    private final static String PRESUPOST_REBUTJAT  = "\tThe research group failed on getting the budget...";
+    private final static String PRESUPOST_REBUTJAT  = "\tThe research group failed on getting the budget...\n";
     private final static String PRESUPOST_PUNTS  = "\t%s PI count: %d\n";
 
     //CONDUCTOR
@@ -797,6 +797,7 @@ public class Vista {
     public void showSubmission(String nom){
         System.out.printf(SUBMISSION_FORMAT, nom);
     }
+
     //todo -> borrar si no se usa
     public void showAccepted(int nousPI){
         System.out.printf(ACCEPTED_FORMAT, nousPI);

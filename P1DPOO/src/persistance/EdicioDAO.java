@@ -1,8 +1,6 @@
 package persistance;
 
 import business.Edicio;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**

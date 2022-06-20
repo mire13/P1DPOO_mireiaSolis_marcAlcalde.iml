@@ -29,7 +29,6 @@ public class Vista {
     private final static String MANAGEMENT = "\nEntering management mode...\n";
     private final static String MANAGEMENT_OPTIONS = "\n\t1) Manage Trials\n" + "\t2) Manage Editions\n\n" + "\t3) Exit" + "\n\nEnter an option: ";
     private final static String SHUTTING_DOWN = "\nShutting down...\n";
-    private final static String EXECUTION = "\nEntering execution mode...\n";
 
     //Missatges de Prova
     private final static String TRIAL_OPTION = "\n\ta) Create Trial\n \tb) List Trials\n \tc) Delete Trial\n \n\td) Back\n\nEnter an option: ";
@@ -72,19 +71,13 @@ public class Vista {
     private final static String EDITION_DELETED = "\nThe edition was successfully deleted.\n";
     private final static String PICK_TRIAL = "Pick a trial (%d/%d): ";
 
-    private final static String REVISED= " Revisions...";
-    private final static String PLAYER_DISCUALIFIED= " - Discualified! ";
-
     private final static String TRIAL_PUBLICACIO_INFO_FORMAT = "\nTrial: %s (%s)\nJournal: %s (%s)\nChances: %s%% acceptance, %s%% revision, %s%% rejection\n";
     private final static String TRIAL_MASTER_INFO_FORMAT = "\nTrial: %s (%s)\nMaster: %s\nECTS: %s, with a %s%% chance to pass each one\n";
     private final static String TRIAL_DOCTOR_INFO_FORMAT = "\nTrial: %s (%s)\nField: %s\nDifficulty: %s\n";
     private final static String TRIAL_BUDGET_INFO_FORMAT = "\nTrial: %s (%s)\nEntity: %s\nBudget: %s€\n";
-    private final static String TRIAL_PICK_FORMAT = "\nPick a trial (%d/%d): ";
     private final static String EDITION_INFO_FORMAT = "\nYear: %d\nPlayers: %s\nTrials";
     private final static String TRIALS_RUNNING_FORMAT = "\nTrial #%d - %s\n\n";
     private final static String SUBMISSION_FORMAT = "\t%s is submitting...";
-    private final static String ACCEPTED_FORMAT = " Accepted! PI count: %d";
-    private final static String REJECTED_FORMAT = " Rejected. PI count: %d";
     private final static String LOST_FORMAT = "\nTHE TRIALS %d HAVE ENDED - PLAYERS LOST\n";
     private final static String WIN_FORMAT = "\nTHE TRIALS %d HAVE ENDED - PLAYERS WON\n";
     private final static String GAME_STOPPED  = "\nSaving & Shutting down...\n";
@@ -455,21 +448,6 @@ public class Vista {
         return numTrials;
     }
 
-
-    //ToDo -> borrar si no se usa
-    public int askCurrentTrialsSelection(int numProves, int i){
-        int trialPicked;
-
-        do {
-            System.out.printf(TRIAL_PICK_FORMAT, (i + 1), numProves);
-            trialPicked = askForInteger();
-            if(trialPicked > numProves || trialPicked < numProves){
-                showError();
-            }
-        } while (trialPicked > numProves || trialPicked < 1);
-        return trialPicked;
-    }
-
     /**
      * Método que sirve para pedir y devolver el año de duplicacion
      * @param current_year int del año actual
@@ -518,10 +496,6 @@ public class Vista {
      */
     public void showShutDown(){
         show(SHUTTING_DOWN);
-    }
-    //todo -> si no se usa se borra
-    public void showExecution(){
-        show(EXECUTION);
     }
 
     /**
@@ -796,25 +770,6 @@ public class Vista {
      */
     public void showSubmission(String nom){
         System.out.printf(SUBMISSION_FORMAT, nom);
-    }
-
-    //todo -> borrar si no se usa
-    public void showAccepted(int nousPI){
-        System.out.printf(ACCEPTED_FORMAT, nousPI);
-    }
-    //todo -> borrar si no se usa
-    public void showRevised(){
-        show(REVISED);
-    }
-    //todo -> borrar si no se usa
-    public void showRejected(int nousPI){
-        if (nousPI < 0){
-            nousPI = 0;
-        }
-        System.out.printf(REJECTED_FORMAT, nousPI);
-        if(nousPI <= 0){
-            show(PLAYER_DISCUALIFIED);
-        }
     }
 
     /**

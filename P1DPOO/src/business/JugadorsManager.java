@@ -49,32 +49,6 @@ public class JugadorsManager {
     public ArrayList<Jugador> getJugadors() {
         return jugadors;
     }
-    public Jugador getJugador(int any, String nom) {
-        for(Jugador j : jugadors)
-            if (j.getAny() == any && j.getNom() == nom)
-                return j;
-        return null;
-    }
-
-    /**
-     * Método que sirve para premiar a un jugador
-     * @param any int con el año
-     * @param nom String con el nombre
-     * @param punts int con los puntos
-     */
-    public void premiar(int any, String nom, int punts) {
-        getJugador(any, nom).premiar(punts);
-    }
-
-    /**
-     * Método que sirve para penalizar a un jugador
-     * @param any int con el año
-     * @param nom String con el nombre
-     * @param punts int con los puntos
-     */
-    public void penalitzar(int any, String nom, int punts){
-        getJugador(any, nom).penalitzar(punts);
-    }
 
     /**
      * Método que sirve para escribir en el fichero la informacion del jugador

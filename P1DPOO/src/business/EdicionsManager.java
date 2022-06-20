@@ -75,20 +75,6 @@ public class EdicionsManager {
     }
 
     /**
-     * Método que sirve para actualizar ediciones
-     * @param IDEdicioActual int con el ID de la edicion
-     * @param lost boolean
-     * @param edicioEnCurs informacion de la edicion en curso
-     */
-    public void actualitzaEdicions(int IDEdicioActual, boolean lost, Edicio edicioEnCurs) {
-        //TODO si no se usa eliminar esta funcion
-        edicions.remove(IDEdicioActual);
-        if (!lost)
-            edicions.add(IDEdicioActual, edicioEnCurs);
-        escriure();
-    }
-
-    /**
      * Método que sirve para saber si la prueba está en curso
      * @param nom nombre de la edicion
      * @param proves LinkedList con las pruebas

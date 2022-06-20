@@ -48,7 +48,7 @@ public class ProvaJsonDAO implements ProvaDAO{
      * Método que sirve para leer del fichero tesi doctoral JSON
      * @return String con la informacion
      */
-    public void llegeixTesiDoctoralJSON() {
+    private void llegeixTesiDoctoralJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaTesiDoctoral = new LinkedList<>();
         try {
@@ -66,7 +66,7 @@ public class ProvaJsonDAO implements ProvaDAO{
      * Método que sirve para leer del fichero presupost JSON
      * @return String con la informacion
      */
-    public void llegeixPresupostJSON() {
+    private void llegeixPresupostJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaPresupost = new LinkedList<>();
         try {
@@ -84,7 +84,7 @@ public class ProvaJsonDAO implements ProvaDAO{
      * Método que sirve para leer del fichero estudi master JSON
      * @return String con la informacion
      */
-    public void llegeixEstudiMasterJSON() {
+    private void llegeixEstudiMasterJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaEstudiMaster = new LinkedList<>();
         try {
@@ -99,7 +99,7 @@ public class ProvaJsonDAO implements ProvaDAO{
      * Método que sirve para leer del fichero publicacion JSON
      * @return String con la informacion
      */
-    public void llegeixPublicacioJSON() {
+    private void llegeixPublicacioJSON() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         provaPublicacio = new LinkedList<>();
         try {
@@ -114,7 +114,7 @@ public class ProvaJsonDAO implements ProvaDAO{
      * Método que sirve para actualizar el JSON
      * @param filename String con el nombre del fichero
      */
-    public void actualizaJSON (String filename) {
+    private void actualizaJSON (String filename) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             FileWriter fw = new FileWriter(filename);
@@ -128,35 +128,6 @@ public class ProvaJsonDAO implements ProvaDAO{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Método que sirve para eliminar una prueba del fichero JSON
-     * @param i int con el indice de la prueba a eliminar
-     */
-    public void eliminaProvaJSON(int i) {
-        String fileName = "";
-
-        switch (listProves.get(i).getClass().getSimpleName()) {
-            case "ProvaEstudiMaster" -> {
-                fileName = PATH_ESTUDI_LLISTA;
-                provaEstudiMaster.remove((ProvaEstudiMaster) listProves.get(i));
-            }
-            case "ProvaPresupost" -> {
-                fileName = PATH_PRESUPOST_LLISTA;
-                provaPresupost.remove((ProvaPresupost) listProves.get(i));
-            }
-            case "ProvaPublicacio" -> {
-                fileName = PATH_PUBLICACIO_LLISTA;
-                provaPublicacio.remove((ProvaPublicacio) listProves.get(i));
-            }
-            case "ProvaTesiDoctoral" -> {
-                fileName = PATH_TESI_LLISTA;
-                provaTesiDoctoral.remove((ProvaTesiDoctoral) listProves.get(i));
-            }
-        }
-        listProves.remove(i);
-        actualizaJSON(fileName);
     }
 
     @Override

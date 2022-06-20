@@ -260,7 +260,6 @@ public class Controller {
      */
     private void creaEdicio() {
         int anyEdicio, numJugadorsInicials, numProves;
-        int i, seleccioProva;
         Edicio novaEdicio;
 
         //Si no hi ha proves no podem crear cap edicio
@@ -423,96 +422,6 @@ public class Controller {
         } else {
             vista.showAbsenceOfEditions(CURRENT_YEAR);
         }
-        /*
-        String nomJugador;
-        int currentState, IDEdicioActual ;
-        ArrayList<Jugador> nousJugadors;
-        boolean continuar = true , lost = false;
-        vista.ShowExecution();
-
-        if(taskManager.AnyRepetit(CURRENT_YEAR)){
-            vista.ShowTrialsTimeBanner(CURRENT_YEAR);
-
-            IDEdicioActual = taskManager.BuscaID(CURRENT_YEAR);
-
-            if(taskManager.EdicioSenseComencar()){
-                //Demanem jugadors y els afejim a edicioActual
-
-                nousJugadors = new ArrayList<Jugador>();
-
-                for (int i = 0; taskManager.DemanaNom(i); i++) {
-                    do {
-                        nomJugador = vista .AskPlayersName();
-
-                        if (nomJugador.equals("")) {
-                            vista.ShowError();
-                        }
-                    } while (nomJugador.equals(""));
-                    nousJugadors.add(new Jugador(i, nomJugador, 5));
-                }
-                taskManager.SetNousJugadors(nousJugadors);
-
-            }
-
-            //Relaitzar cada prova
-            for(int j = taskManager.GetCurrentState(); taskManager.SeguentProva(j) && continuar; j++) {
-
-                vista.ShowRunningTrial(j, taskManager.GetNomProvaEnCurs(j));
-
-                if (taskManager.ProvaTipusPublicacio(j)) {
-                    for (int i = 0; taskManager.SeguentJugador(i); i++) {
-
-                        vista.ShowSubmission(taskManager.GetNomJugadorEnCurs(i));
-                        boolean revise;
-
-                        do{
-                            Random r = new Random();
-                            int randomNum;
-                            randomNum = r.nextInt(100);
-                            revise = false;
-
-                            if (taskManager.Accepted(randomNum,j)) {
-                                int nousPI = taskManager.Premiar(j, i);
-                                vista.ShowAccepted(nousPI);
-
-                            } else if (taskManager.Revised(randomNum,j)) {
-                                vista.ShowRevised();
-                                revise = true;
-
-                            } else{
-                                // Penalitzem per haver sigut rebutjat
-                                int nousPI = taskManager.Penalitzar(j, i);
-                                vista.ShowRejected(nousPI);
-
-                            }
-                        }while(revise);
-                    }
-                }
-
-                taskManager.ActualitzaTotalJugadors();
-                continuar = taskManager.QuedenJugadors();
-                if(continuar)
-                    continuar = vista .AskIfContinue();
-                else{
-                    vista.ShowPlayersLost(CURRENT_YEAR);
-                    lost = true;
-                }
-                currentState = j;
-            }
-            if(!lost)
-                vista.ShowPlayersWon(CURRENT_YEAR);
-
-            taskManager.ActualitzaCurrentState(taskManager.GetCurrentState() + 1);
-            taskManager.ActualitzaEdicions(IDEdicioActual, lost);
-            //taskManager.Save();
-
-            //Guardar info en el fichero en jugadorDAO los jugadores que queden haciento la prueba, en edicio dao las ediciones que tiene EditionManager, y en provasManagger las Pruevas
-
-        } else {
-            vista.ShowAbsenceOfEditions(CURRENT_YEAR);
-        }
-
-         */
     }
 
     /**

@@ -153,7 +153,7 @@ public class Vista {
      * Método que sirve para pedir un carácter
      * @return char de el carácter introducido
      */
-    public char askForChar() {
+    private char askForChar() {
         String line = null;
         do {
             if (line != null) {
@@ -170,7 +170,7 @@ public class Vista {
      * Método que sirve para pedir un int
      * @return int introducido
      */
-    public int askForInteger(){
+    private int askForInteger(){
         while (!scanner.hasNextInt()) {
             System.out.print("Integer input expected. Please try again: ");
             scanner.next();
@@ -412,7 +412,7 @@ public class Vista {
      * @param current_year int del año actual
      * @return int del año recogido
      */
-    public int askEditionYear(int current_year){
+    private int askEditionYear(int current_year){
         int year;
         do {
             year = askForInteger();
@@ -528,7 +528,7 @@ public class Vista {
      * Método que sirve para mostrar un String
      * @param cadena String a mostrar
      */
-    public void show(String cadena){
+    private void show(String cadena){
         System.out.print(cadena);
     }
 

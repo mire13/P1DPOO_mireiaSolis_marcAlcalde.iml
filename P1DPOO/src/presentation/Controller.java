@@ -11,9 +11,7 @@ import java.util.Calendar;
 public class Controller {
     private Vista vista;
     private TaskManager taskManager;
-    private ProvesManager provesManager;
-    private ProvaPublicacio prova;
-    private int CURRENT_YEAR = 2022;
+    private int CURRENT_YEAR;
 
     /**
      * Constructor por defecto
@@ -50,7 +48,7 @@ public class Controller {
      * Método que sirve para ejecutar la opcion
      * @param opcio char de la opcion
      */
-    public void executarOpcio(char opcio) {
+    private void executarOpcio(char opcio) {
 
         switch (opcio) {
             case 'A':
@@ -68,7 +66,7 @@ public class Controller {
     /**
      * Método para gestionar las ediciones y las pruebas
      */
-    public void compositor() {
+    private void compositor() {
         vista.showManagement();
         int administracio;
 
@@ -96,7 +94,7 @@ public class Controller {
     /**
      * Método que sirve para dministrar las pruebas
      */
-    public void administraProves() {
+    private void administraProves() {
         char opcioProva;
 
         do {
@@ -124,7 +122,7 @@ public class Controller {
     /**
      * Método que sirve para crear una prueba
      */
-    public void creaProva() {
+    private void creaProva() {
         String trialName;
         int tryalType = vista .askTrialType();
 
@@ -179,7 +177,7 @@ public class Controller {
     /**
      * Método que sirve para listar las pruebas
      */
-    public void llistaProves() {
+    private void llistaProves() {
         int opcio;
         //En cas que no hi hagi proves a mostrar printem error
         if (taskManager.absenceOfTrials()){
@@ -201,7 +199,7 @@ public class Controller {
     /**
      * Método que sirve para eliminar una prueba
      */
-    public void eliminarProva() {
+    private void eliminarProva() {
         int opcio;
         String nomProvaAEliminar;
 
@@ -229,7 +227,7 @@ public class Controller {
     /**
      * Método que sirve para administrar ediciones
      */
-    public void administraEdicions() {
+    private void administraEdicions() {
         char opcio;
 
         do {
@@ -260,7 +258,7 @@ public class Controller {
     /**
      * Método que sirve para crear una edicion
      */
-    public void creaEdicio() {
+    private void creaEdicio() {
         int anyEdicio, numJugadorsInicials, numProves;
         int i, seleccioProva;
         Edicio novaEdicio;
@@ -295,7 +293,7 @@ public class Controller {
     /**
      * Método que sirve para listar las ediciones
      */
-    public void llistarEdicions(){
+    private void llistarEdicions(){
         int opcio;
 
         vista.showEditionMsg();
@@ -312,7 +310,7 @@ public class Controller {
     /**
      * Método que sirve para duplicarr las ediciones
      */
-    public void duplicarEdicio() {
+    private void duplicarEdicio() {
         int opcio, any, numJugadors;
 
         vista.showCloneEdition();
@@ -341,7 +339,7 @@ public class Controller {
     /**
      * Método que sirve para eliminar las ediciones
      */
-    public void eliminarEdicio(){
+    private void eliminarEdicio(){
         int opcio, anyAEliminar;
 
         vista.showEditionDelete();
@@ -365,7 +363,7 @@ public class Controller {
     /**
      * Método que sirve para ejecutar la edicion actual
      */
-    public void conductor(){
+    private void conductor(){
         // Comprova si n'hi ha una edició per aquest any
         if (taskManager.edicioEnCurs(CURRENT_YEAR)!=-1) {
             vista.showTrialsTimeBanner(CURRENT_YEAR);

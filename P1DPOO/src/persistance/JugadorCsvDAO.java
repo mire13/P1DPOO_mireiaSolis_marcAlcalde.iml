@@ -1,15 +1,19 @@
 package persistance;
 
+import business.Edicio;
+import business.Jugador;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class JugadorCsvDAO implements JugadorDAO{
 
-    private final String PATH = System.getProperty("user.dir") + "/files/";
+    private final String PATH = "P1DPOO/files/jugadors.csv";
 
     @Override
     public void checkPath(){
@@ -22,16 +26,16 @@ public class JugadorCsvDAO implements JugadorDAO{
     @Override
     /**
      * Método que sirve para escribir en CSV
-     * @param info String con la informacion
+     * @param jugadors LinkedList con la informacion
      */
-    public void escriure(String[] info){
+    public void escriure(LinkedList<Jugador> jugadors){
         checkPath();
         try {
             // Obre el fitxer en mode d'escriptura
-            FileWriter file = new FileWriter(PATH + "jugadors.csv");
+            FileWriter file = new FileWriter(PATH);
 
             // Itera per cada linea donada i registrala a l'arxiu CSV
-            for (String s : info) {
+            for (Jugador s : jugadors) {
                 file.write(s + "\n");
             }
             // Tanca el fitxer
@@ -46,18 +50,18 @@ public class JugadorCsvDAO implements JugadorDAO{
     @Override
     /**
      * Método que sirve para leer del fichero CSV
-     * @return String con la informacion
+     * @return LinkedList con la informacion
      */
-    public String[] llegir() {
+    public LinkedList<Jugador> llegir() {
         checkPath();
         // Comprova si l'arxiu existeix
         ArrayList<String> lines = new ArrayList<>();
         try {
-            File f = new File(PATH + "jugadors.csv");
+            File f = new File(PATH);
 
             if (f.exists()) {
                 // Obre el fitxer per llegir
-                FileReader file = new FileReader(PATH + "jugadors.csv");
+                FileReader file = new FileReader(PATH);
                 Scanner scan = new Scanner(file);
 
                 // Itera per cada linea i afegeix-la a la lista

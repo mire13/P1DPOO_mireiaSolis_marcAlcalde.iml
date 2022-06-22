@@ -102,8 +102,6 @@ public class ProvesManager {
      */
     public void llegir() {
         proves = provaDAO.leer();
-
-
     }
 
     /**

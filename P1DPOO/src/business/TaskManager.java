@@ -28,7 +28,7 @@ public class TaskManager {
     public void leerCSV(){
         provesManager.llegir();
         edicionsManager.llegir();
-        jugadorsManager.llegir(true);
+        jugadorsManager.llegir();
     }
 
     /**
@@ -37,7 +37,7 @@ public class TaskManager {
     public void leerJSON() {
         provesManager.llegir();
         edicionsManager.llegir();
-        jugadorsManager.llegir(false);
+        jugadorsManager.llegir();
     }
 
     /**
@@ -232,7 +232,7 @@ public class TaskManager {
      * Método que sirve para coger la informacion de los jugadores
      * @return ArrayList de jugadores
      */
-    public ArrayList<Jugador> getJugadors() {
+    public LinkedList<Jugador> getJugadors() {
         return jugadorsManager.getJugadors();
     }
 
@@ -253,5 +253,6 @@ public class TaskManager {
     public void setCSV(boolean isCSV) {
         provesManager.setPersistanceType(isCSV);
         edicionsManager.setPersistanceType(isCSV);
+        jugadorsManager.setPersistanceType(isCSV);
     }
 }

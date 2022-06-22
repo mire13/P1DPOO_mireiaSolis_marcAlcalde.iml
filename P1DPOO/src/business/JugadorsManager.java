@@ -1,22 +1,24 @@
 package business;
 
+import persistance.JugadorCsvDAO;
+import persistance.JugadorDAO;
 import persistance.JugadorJsonDAO;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Método que sirve para controlar y gestionar los jugadores
  */
 public class JugadorsManager {
 
-    private ArrayList<Jugador> jugadors;
-    private JugadorJsonDAO jugadorDAO;
+    private LinkedList<Jugador> jugadors;
+    private JugadorDAO jugadorDAO;
 
     /**
      * Constructor para inicializar la lista de jugadores y del DAO
      */
     public JugadorsManager(){
         this.jugadorDAO = new JugadorJsonDAO();
-        this.jugadors = new ArrayList<Jugador>();
+        this.jugadors = new LinkedList<>();
     }
 
     /**
@@ -46,7 +48,7 @@ public class JugadorsManager {
      * Método para coger la informacion de los jugadores
      * @return ArrayList de jugadores
      */
-    public ArrayList<Jugador> getJugadors() {
+    public LinkedList<Jugador> getJugadors() {
         return jugadors;
     }
 
@@ -54,45 +56,26 @@ public class JugadorsManager {
      * Método que sirve para escribir en el fichero la informacion del jugador
      */
     public void escriure() {
-        String[] info = new String[jugadors.size()];
-        int i = 0;
-
-        for (Jugador j : jugadors) {
-            info[i] = j.getInfoCSV();
-            i++;
-        }
-
-        jugadorDAO.escriure(info);
+        jugadorDAO.escriure(jugadors);
     }
 
     /**
      * Método que sirve para leer del fichero la informacion del jugador
      */
-    public void llegir(boolean isCSV) {
-        String[] lines;
-        if (true){
-            lines = jugadorDAO.llegirCSV();
-            // Itera per cada linia de l'arxiu
-            for (int i = 0; i < lines.length; i++) {
-                // Separa la linia per cada coma
-                String[] line = lines[i].split(",");
+    public void llegir() {
+        jugadors = jugadorDAO.llegir();
+    }
 
-                // Converteix cada element en el tipus de dada corresponent
-                String tipus = line[0];
-                int any = Integer.parseInt(line[1]);
-                String nom = line[2];
-                int PI = Integer.parseInt(line[3]);
-
-                if (tipus.equals("Enginyer"))
-                    creaJugador(new Enginyer(any, nom, PI));
-                if (tipus.equals("Master"))
-                    creaJugador(new Master(any, nom, PI));
-                if (tipus.equals("Doctor"))
-                    creaJugador(new Doctor(any, nom, PI));
-                //else if (tipus.equals("Master"))
-            }
-        } else if (false){
-            lines = jugadorDAO.llegirJSON();
+    /**
+     * Metodo que hace una nueva instancia del CsvDAO o JsonDAO en funcion de lo que escoja el usuario
+     *
+     * @param isCSV boolean para asignar el valor, true si es CSV false si es Json
+     */
+    public void setPersistanceType(boolean isCSV) {
+        if (isCSV) {
+            jugadorDAO = new JugadorCsvDAO();
+        } else {
+            jugadorDAO = new JugadorJsonDAO();
         }
     }
 }

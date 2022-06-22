@@ -1,7 +1,8 @@
 package business;
 
 import presentation.Controller;
-import java.util.ArrayList;
+
+import java.util.LinkedList;
 import java.util.Random;
 /**
  * Clase que contiene las pruebas de tipo publicacion
@@ -112,7 +113,7 @@ public class ProvaPublicacio extends Prova {
      * @param jugadors ArrayList con los jugadores
      * @param controller controlador
      */
-    public void executarProva(int index, int totalJugadors, int any, ArrayList<Jugador> jugadors, Controller controller) {
+    public void executarProva(int index, int totalJugadors, int any, LinkedList<Jugador> jugadors, Controller controller) {
         for(Jugador jugador : jugadors) {
             if (jugador.getAny() == any && jugador.getPi()>0) {
                 // Executa la prova de publicacio per un jugador especific

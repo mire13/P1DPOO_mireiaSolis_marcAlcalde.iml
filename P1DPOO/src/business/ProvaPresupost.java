@@ -1,7 +1,9 @@
 package business;
 
 import presentation.Controller;
-import java.util.ArrayList;
+
+import java.util.LinkedList;
+
 /**
  * Clase que contiene las pruebas de tipo Presupuesto
  */
@@ -65,7 +67,7 @@ public class ProvaPresupost extends Prova {
      * @param controller controlador
      */
     @Override
-    public void executarProva(int index, int totalJugadors, int any, ArrayList<Jugador> jugadors, Controller controller) {
+    public void executarProva(int index, int totalJugadors, int any, LinkedList<Jugador> jugadors, Controller controller) {
 
         // Calcula els punts totals
         int totalPI = 0;

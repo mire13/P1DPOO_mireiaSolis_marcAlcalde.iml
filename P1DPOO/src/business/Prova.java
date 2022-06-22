@@ -2,6 +2,8 @@ package business;
 
 import presentation.Controller;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 /**
  * Clase que contiene el métodos y atributos de la Prueba
  */
@@ -41,7 +43,7 @@ public abstract class Prova {
      * @param any int con el año de la prueba
      * @param jugadors ArrayList con los jugadores
      */
-    public abstract void executarProva(int index, int totalJugadors, int any, ArrayList<Jugador> jugadors, Controller controller);
+    public abstract void executarProva(int index, int totalJugadors, int any, LinkedList<Jugador> jugadors, Controller controller);
 
 }
 

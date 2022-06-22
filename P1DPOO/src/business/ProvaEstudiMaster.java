@@ -1,7 +1,8 @@
 package business;
 
 import presentation.Controller;
-import java.util.ArrayList;
+
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -72,7 +73,7 @@ public class ProvaEstudiMaster extends Prova {
      * @param controller controlador
      */
     @Override
-    public void executarProva(int index, int totalJugadors, int any, ArrayList<Jugador> jugadors, Controller controller) {
+    public void executarProva(int index, int totalJugadors, int any, LinkedList<Jugador> jugadors, Controller controller) {
         for (Jugador jugador : jugadors) {
             if (jugador.getAny() == any && jugador.getPi() > 0) {
                 // Calcul de com aprobar cada credit

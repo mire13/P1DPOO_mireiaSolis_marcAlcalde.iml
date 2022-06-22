@@ -12,13 +12,13 @@ import java.util.LinkedList;
  * Clase que contiene los métodos implementados por los ficheros de pruebas
  */
 public class ProvaJsonDAO implements ProvaDAO{
-    private LinkedList<Prova> listProves;
 
     private final static String PATH_PUBLICACIO_LLISTA = "P1DPOO/files/publicacioLlista.json";
     private final static String PATH_ESTUDI_LLISTA = "P1DPOO/files/estudiLlista.json";
     private final static String PATH_TESI_LLISTA = "P1DPOO/files/tesiLlista.json";
     private final static String PATH_PRESUPOST_LLISTA = "P1DPOO/files/presupostLlista.json";
 
+    private LinkedList<Prova> listProves;
     private LinkedList<ProvaPublicacio> provaPublicacio;
     private LinkedList<ProvaEstudiMaster> provaEstudiMaster;
     private LinkedList<ProvaTesiDoctoral> provaTesiDoctoral;

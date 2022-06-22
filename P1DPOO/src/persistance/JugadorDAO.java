@@ -1,4 +1,9 @@
 package persistance;
+
+import business.Jugador;
+
+import java.util.LinkedList;
+
 /**
  * Interfície implementada en diferents clases per fer servir els mateixos mètodes per la execució
  */
@@ -10,14 +15,14 @@ public interface JugadorDAO {
     void checkPath();
     /**
      * Método que sirve para chekear el path y escribir en el fichero
-     * @param info String con la informacion a escribir
+     * @param jugador LinkedLIST con la informacion a escribir
      */
-    void escriure(String[] info);
+    void escriure(LinkedList<Jugador> jugador);
 
     /**
      * Método que sirve para leer del fichero
      * @return String con la informacion
      */
-    String[] llegir();
+    LinkedList<Jugador> llegir();
 
 }

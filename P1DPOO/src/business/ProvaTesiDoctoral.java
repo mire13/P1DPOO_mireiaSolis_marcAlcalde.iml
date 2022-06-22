@@ -1,7 +1,8 @@
 package business;
 
 import presentation.Controller;
-import java.util.ArrayList;
+
+import java.util.LinkedList;
 
 /**
  * Clase que contiene las pruebas de tipo tesi doctoral
@@ -66,7 +67,7 @@ public class ProvaTesiDoctoral extends Prova {
      * @param controller controlador
      */
     @Override
-    public void executarProva(int index, int totalJugadors, int any, ArrayList<Jugador> jugadors, Controller controller) {
+    public void executarProva(int index, int totalJugadors, int any, LinkedList<Jugador> jugadors, Controller controller) {
         for (Jugador jugador : jugadors) {
             if (jugador.getAny() == any && jugador.getPi() > 0) {
 

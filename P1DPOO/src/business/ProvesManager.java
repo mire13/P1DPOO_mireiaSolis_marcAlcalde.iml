@@ -72,7 +72,6 @@ public class ProvesManager {
      */
     public void eliminaProva(int i) {
         provaDAO.elimina(proves, i);
-        //proves.remove(i);
     }
 
     /**

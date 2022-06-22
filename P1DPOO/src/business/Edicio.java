@@ -54,14 +54,6 @@ public class Edicio {
     public int[] getProves() { return proves; }
 
     /**
-     * Método que sirve para actualizar el número de jugadores
-     * @param totalJugadors int con el nuevo número de jugadores
-     */
-    public void setTotalJugadors(int totalJugadors) {
-        this.totalJugadors = totalJugadors;
-    }
-
-    /**
      * Método que sirve para saber el estado actual de la edicion
      * @param currentState int con el estado actual
      */
@@ -88,15 +80,4 @@ public class Edicio {
         }
     }
 
-    /**
-     * Método que sirve para coger la información
-     * @param proves un ArrayList de tipo Prova
-     * @return String info con la información de la edicion
-     */
-    public String getInfoCSV(ArrayList<Prova> proves) {
-        String info = "";
-
-        info = any + "," + totalJugadors + "," + totalProves;
-        return info;
-    }
 }

@@ -27,11 +27,7 @@ public class JugadorJsonDAO implements JugadorDAO{
         }
     }
 
-    /**
-     * Método que sirve para chekear el path y escribir en CSV
-     * @param jugador LinkedList con la informacion
-     */
-    // Escriure
+    @Override
     public void escriure(LinkedList<Jugador> jugador) {
         checkPath();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -44,10 +40,7 @@ public class JugadorJsonDAO implements JugadorDAO{
         }
     }
 
-    /**
-     * Método que sirve para leer del fichero JSON
-     * @return String con la informacion
-     */
+    @Override
     public LinkedList<Jugador> llegir() {
         try {
             FileReader fr = new FileReader((PATH));

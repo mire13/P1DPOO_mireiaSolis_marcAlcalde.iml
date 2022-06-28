@@ -52,5 +52,8 @@ public class Enginyer extends Jugador {
      */
     public void penalitzar(int quantitat){
         pi = pi - quantitat;
+        if (pi < 0) {
+            pi = 0;
+        }
     }
 }

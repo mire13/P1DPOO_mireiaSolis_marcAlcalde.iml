@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "journalName": "hh",
+    "quartile": "Q2",
+    "acceptanceProbability": 20,
+    "revisionProbability": 20,
+    "rejectionProbability": 60,
+    "nom": "holis"
+  }
+]

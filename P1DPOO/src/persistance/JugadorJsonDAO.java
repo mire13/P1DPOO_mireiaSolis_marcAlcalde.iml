@@ -1,7 +1,9 @@
 package persistance;
 
 import business.Edicio;
+import business.Enginyer;
 import business.Jugador;
+import business.ProvaTesiDoctoral;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -13,7 +15,7 @@ import java.util.LinkedList;
  * Clase que contiene los métodos implementados por los ficheros de jugadores
  */
 public class JugadorJsonDAO implements JugadorDAO{
-
+    private LinkedList<Jugador> lista;
     private final String PATH = "P1DPOO/files/jugadors.json";
 
     /**
@@ -42,6 +44,17 @@ public class JugadorJsonDAO implements JugadorDAO{
 
     @Override
     public LinkedList<Jugador> llegir() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        lista = new LinkedList<>();
+        try {
+            Enginyer[] jugadores = gson.fromJson(gson.newJsonReader(new FileReader(PATH)), Enginyer[].class);
+            if (jugadores != null) {
+                lista = new LinkedList<>(Arrays.asList(jugadores));
+            }
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        /*
         try {
             FileReader fr = new FileReader((PATH));
             Gson gson = new Gson();
@@ -55,6 +68,9 @@ public class JugadorJsonDAO implements JugadorDAO{
         } catch(FileNotFoundException e){
             e.printStackTrace();
         }
-        return null;
+        return null;*/
+
+       return lista;
+
     }
 }

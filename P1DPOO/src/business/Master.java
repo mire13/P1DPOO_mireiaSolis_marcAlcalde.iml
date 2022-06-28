@@ -49,5 +49,8 @@ public class Master extends Enginyer {
      */
     public void penalitzar(int quantitat){
         pi = pi - (int) Math.floor(quantitat / 2);
+        if (pi < 0) {
+            pi = 0;
+        }
     }
 }

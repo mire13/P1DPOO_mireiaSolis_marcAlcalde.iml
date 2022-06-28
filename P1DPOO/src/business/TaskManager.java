@@ -198,7 +198,7 @@ public class TaskManager {
      * Método que sirve para escribir en los ficheros
      */
     public void escriure() {
-        provesManager.escriure();
+        //provesManager.escriure();
         edicionsManager.escriure();
         jugadorsManager.escriure();
     }

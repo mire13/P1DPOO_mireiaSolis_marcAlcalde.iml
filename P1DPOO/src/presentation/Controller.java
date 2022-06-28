@@ -374,7 +374,6 @@ public class Controller {
 
             // Si es el primer cop que executem l'edicio registra els jugadors
             if (e.getCurrentState() == 0) {
-                System.out.println();
                 for (int i = 0; i < totalJugadors; i++) {
                     String name = vista .askPlayersName(i+1, totalJugadors);
 

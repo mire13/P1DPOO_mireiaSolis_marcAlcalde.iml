@@ -1,7 +1,6 @@
 package persistance;
 
-import business.Edicio;
-import business.Jugador;
+import business.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -26,16 +25,29 @@ public class JugadorCsvDAO implements JugadorDAO{
     @Override
     /**
      * Método que sirve para escribir en CSV
-     * @param jugadors LinkedList con la informacion
+     * @param info String con la informacion
      */
     public void escriure(LinkedList<Jugador> jugadors){
-        checkPath();
+        String[] info = new String[jugadors.size()];
+        int i = 0;
+
+        for (Jugador p : jugadors) {
+            String aux = "";
+
+            aux += p.getType() + ",";
+            aux += p.getAny() + ",";
+            aux += p.getNom() + ",";
+            aux += p.getPi();
+
+            info[i] = aux;
+            i++;
+        }
         try {
             // Obre el fitxer en mode d'escriptura
             FileWriter file = new FileWriter(PATH);
 
             // Itera per cada linea donada i registrala a l'arxiu CSV
-            for (Jugador s : jugadors) {
+            for (String s : info) {
                 file.write(s + "\n");
             }
             // Tanca el fitxer
@@ -50,11 +62,10 @@ public class JugadorCsvDAO implements JugadorDAO{
     @Override
     /**
      * Método que sirve para leer del fichero CSV
-     * @return LinkedList con la informacion
-     */
+     * @return String con la informacion
+     **/
     public LinkedList<Jugador> llegir() {
-        checkPath();
-        // Comprova si l'arxiu existeix
+        LinkedList<Jugador> jugadors = new LinkedList<>();
         ArrayList<String> lines = new ArrayList<>();
         try {
             File f = new File(PATH);
@@ -80,7 +91,24 @@ public class JugadorCsvDAO implements JugadorDAO{
         String[] linesArray = new String[lines.size()];
         lines.toArray(linesArray);
 
-        return linesArray;
-    }
+        // Itera per cada linia de l'arxiu
+        for (int i = 0; i < linesArray.length; i++) {
+            // Separa la linia per cada coma
+            String[] line = linesArray[i].split(",");
 
+            // Converteix cada element en el tipus de dada corresponent
+            String tipus = line[0];
+            int any = Integer.parseInt(line[1]);
+            String nom = line[2];
+            int PI = Integer.parseInt(line[3]);
+
+            if (tipus.equals("Enginyer"))
+                jugadors.add(new Enginyer(any, nom, PI));
+            if (tipus.equals("Master"))
+                jugadors.add(new Master(any, nom, PI));
+            if (tipus.equals("Doctor"))
+                jugadors.add(new Doctor(any, nom, PI));
+        }
+        return jugadors;
+    }
 }

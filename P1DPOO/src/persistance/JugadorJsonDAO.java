@@ -50,11 +50,15 @@ public class JugadorJsonDAO implements JugadorDAO{
      */
     public LinkedList<Jugador> llegir() {
         try {
-            FileReader fr = new FileReader(new File(PATH));
+            FileReader fr = new FileReader((PATH));
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(fr);
             Jugador[] info = gson.fromJson(reader,Jugador[].class);
-            return new LinkedList<>(Arrays.asList(info));
+            if (info != null) {
+                return new LinkedList<>(Arrays.asList(info));
+            } else {
+                return null;
+            }
         } catch(FileNotFoundException e){
             e.printStackTrace();
         }

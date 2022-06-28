@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "any": 2022,
+    "totalJugadors": 2,
+    "totalProves": 3,
+    "proves": [
+      0,
+      1,
+      1
+    ],
+    "currentState": 2
+  }
+]

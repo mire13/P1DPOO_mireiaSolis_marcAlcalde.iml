@@ -57,7 +57,7 @@ public class JugadorJsonDAO implements JugadorDAO{
             if (info != null) {
                 return new LinkedList<>(Arrays.asList(info));
             } else {
-                return null;
+                return new LinkedList<>();
             }
         } catch(FileNotFoundException e){
             e.printStackTrace();
